@@ -31,6 +31,12 @@ export class RemplissageService {
   bouchonOff() {
     this.socket.emit('systeme', '9' )
   }
+  rebotOn() {
+    this.socket.emit('systeme', '10' )
+  }
+  rebotOff() {
+    this.socket.emit('systeme', '11' )
+  }
 
 
 
