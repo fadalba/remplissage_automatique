@@ -44,12 +44,12 @@ export class RemplissageService {
   }
 
   login(user: any) {
-    return this.http.post('http://localhost:3000/auth/login', user);
+    return this.http.post('http://localhost:3001/auth/login', user);
   }
 
   getUser() {
 
-    return this.http.get('http://localhost:3000/auth/profile', {
+    return this.http.get('http://localhost:3001/auth/profile', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '+ localStorage.getItem('token')
