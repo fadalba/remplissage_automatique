@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { SystemeComponent } from './systeme/systeme.component';
 import { HeaderComponent } from './header/header.component';
 import { NavformComponent } from './navform/navform.component';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SystemeComponent,
     HeaderComponent,
-    NavformComponent
+    NavformComponent,
+    ConnexionComponent
   ],
   imports: [
     BrowserModule,
