@@ -17,7 +17,7 @@ export class UserService {
 
     console.log(data);
 
-   // let API_URL = `${this.endpoint}/updateUser/${id}`;
+   let API_URL = `${this.endpoint}/updateUser/${id}`;
 
     return this.http.patch(`http://localhost:3001/endpoint/updateUser/${id}`, {"actuelPass": data.actuelPass,
   "newPass":data.newPass})
