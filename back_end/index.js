@@ -120,19 +120,13 @@ io.on('connection', function(socket) {
  parser.on('data', function(data) { 
   console.log(data)
     //console.log('les information sont: ' + data);
-    temp = data.split('/'); 
-    var temperature = data.slice(0, 1); //decoupe de la temperature
-    var humidite_serre  = data.slice(2, 3); //decoupe de l'humidite
-    var humidite_sol = data.slice(4, 6); //decoupe de l'humidite
-    var luminosite = data.slice(8, 11); //decoupe de l'humidite
-    var distance = data.slice(12);
+    remplit = data.split('/'); 
+    var nbr_rempli = data.slice(0, 1); //decoupe de la temperature
+    
     //console.log(data.split('/'));
-    io.emit('donne', {"temperature": temperature, "humidite_serre": humidite_serre,"humidite_sol": humidite_sol,"luminosite": luminosite, "distance":distance});
-    io.emit('temperature',temperature);
-    io.emit('humidite_serre',humidite_serre);
-    io.emit('humidite_sol', humidite_sol);
-    io.emit('luminosite', luminosite);
-    io.emit('distance', distance);
+    io.emit('donne', {"quantité": nbr_rempli});
+    io.emit('quantité',nbr_rempli);
+       
     var datHeure = new Date(); 
      var min = datHeure.getMinutes();
     var heur = datHeure.getHours(); //heure
@@ -144,8 +138,8 @@ io.on('connection', function(socket) {
     if (mois < 10) { mois = '0' + mois; }
     if (sec < 10) { sec = '0' + sec; }
     if (min < 10) { min = '0' + min; }
-    var heureInsertion = heur + ':' + min + ':' + sec;
-    var heureEtDate = laDate  + '-' + mois + '-' +  numMois; 
+    //var heureInsertion = heur + ':' + min + ':' + sec;
+    //var heureEtDate = laDate  + '-' + mois + '-' +  numMois; 
    
     const fetchMovies = (socket) => {
         data.findAll()
