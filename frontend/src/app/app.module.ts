@@ -9,7 +9,8 @@ import { NavformComponent } from './navform/navform.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io'
+import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
+import { FormulaireComponent } from './formulaire/formulaire.component'
 
 const config: SocketIoConfig= {
   url: 'http://localhost:3001',
@@ -23,7 +24,8 @@ const config: SocketIoConfig= {
     SystemeComponent,
     HeaderComponent,
     NavformComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    FormulaireComponent
   ],
   imports: [
     BrowserModule,
