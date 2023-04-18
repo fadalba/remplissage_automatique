@@ -39,6 +39,15 @@ console.log('Database Connected')
 
 })
 
+// nouvelle methode insertion 
+const compteurSchema = new mongoose.Schema({
+  total: {
+    type: Number,
+    default: 0
+  }
+});
+const Compteur = mongoose.model('Compteur', compteurSchema);
+
 var fs = require('fs');
 /* var index = fs.readFileSync( '/'); */
 
@@ -49,9 +58,6 @@ const router = require('./routes/routes');
 /* const parser = SerialPort.parsers; */ 
 var path = require('path'); 
 const { log } = require('console');
-
-
-
 
  var port = new SerialPort({ path:'/dev/ttyACM0',
     baudRate: 9600,
@@ -147,36 +153,28 @@ io.on('connection', function(socket) {
             .catch(logError)
     }
    
-   /*  var temperature = data.slice(0, 2); //decoupe de la temperature
-    var humidite_serre = data.slice(3, 5); //decoupe de l'humidite 
-  
-   var tempEtHum = { "temperature": temperature, "humidite_serre": humidite_serre, "humidite_sol": humidite_sol  , 'Date': heureEtDate, 'Heure': heureInsertion }; 
-   if ((heur == 12 && min == 36 && sec == 00) ||(heur == 11 && min == 42 && sec == 00)) { 
-   // if(sec == 00){ 
-         //Connexion a mongodb et insertion Temperature et humidite
-          MongoClient.connect(url, { useUnifiedTopology: false }, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("soutenance");
-            dbo.collection("compteur").insertOne(tempEtHum, function(err, res) {
-                if (err) throw err;
-                console.log("1 document inserted");
-                db.close();
-            });
-        }) */
- //   } //Fin if
-/* }
-if(heur == 12 && min == 50 && sec == 00){
-    MongoClient.connect(url, { useUnifiedTopology: false }, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("soutenance");
-        dbo.collection("compteur").insertOne(tempEtHum, function(err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            db.close();
-        });
-    })
-}  */
  
+ // nouvelle methode insertion 
+ let totalRempli = 0;
+
+parser.on('data', (data) => {
+  // Mettre à jour le compteur
+  totalRempli++;
+
+  // Afficher la nouvelle valeur du compteur
+  console.log(`Compteur : ${totalRempli}`);
+});
+
+// À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
+const nouveauCompteur = new Compteur({ total: totalRempli });
+nouveauCompteur.save((err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`Compteur final enregistré : ${totalRempli}`);
+  }
+});
+
  
 
  
