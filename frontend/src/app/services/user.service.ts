@@ -11,6 +11,7 @@ export class UserService {
   httpClient: any;
 
   constructor(private http: HttpClient, private route: Router) { }
+
   //modification password user
   updatePassword(id: any, data: any): Observable<any> {
     console.log(id);
