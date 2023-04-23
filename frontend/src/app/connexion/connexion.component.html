@@ -13,7 +13,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
                             <div class="text-center">
                                 <h3 class="text-light">CONNEXION</h3>
                             </div>
-                            <form action="">
+                            <form action=""  [formGroup]="registerForm"  (ngSubmit)="onSubmit()">
                                 <div class="p-4">
                                     <label class="text-light  text-slate-900  mb-2 text-lg" for="username">
                                         Email </label>
@@ -22,15 +22,39 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
                                         <span class="input-group-text bg-secondary"><i
                                                 class="bi bi-person-plus-fill text-white"></i></span>
                                                 
-                                        <input type="text" class="form-control" placeholder="Username">
+                                        <input type="text" class="form-control" id="email" placeholder="Username" formControlName="email"
+                                        [ngClass]="{'is-invalid':submitted && registerForm.controls['email'].errors}" formControlName="email">
+                                      
                                     </div>
+                                    <div *ngIf="registerForm.controls['email'].dirty && registerForm.controls['email'].errors" class="text-danger">
+                                        <p *ngIf=" registerForm.controls['email'].errors['required']"
+                                        class="text-red-500 mb-2 text-xs font-sans">
+                                    Champ Vide        </p>
+                                      <p *ngIf=" registerForm.controls['email'].errors['email']"
+                                        class="text-red-500 text-xs font-sans">
+                                        Email Invalid
+                                      </p>
+                            
+                                      </div>
                                     <label class="text-light  text-slate-900  mb-2 text-lg" for="username">
                                        Mot de pass </label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text bg-secondary"><i
                                                 class="bi bi-key-fill text-white"></i></span>
-                                        <input type="password" class="form-control" placeholder="password">
+                                        <input type="password" class="form-control" id="password" placeholder="password" minlength="6"
+                                        formControlName="password">
+                                       
                                     </div>
+                                    <div *ngIf="  registerForm.controls['password'].dirty  && registerForm.controls['password'].errors"class="text-danger" >
+                                        <p *ngIf=" registerForm.controls['password'].errors['required']"
+                                        class="text-red-500 mb-2 text-xs font-sans">
+                                    Champ Vide        </p>
+                                      <p *ngIf="registerForm.controls['password'].errors['minlength']"
+                                        class="text-red-500 text-xs font-sans">
+                                        Minimum 6 caractères
+                                      </p>
+                                    
+                                      </div>
                                     <div class="form-check">
                                         <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
