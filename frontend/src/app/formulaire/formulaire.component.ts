@@ -20,11 +20,13 @@ f: any;
       actuelpassword:['', [Validators.required, Validators.minLength(6)]],
       newpassword:['', [Validators.required, Validators.minLength(6)]],
       confirmation: ['', [Validators.required]],
-    }, { validator: MustMatch('newPassword', 'confirmation') }
+    }, { validator: MustMatch('newpassword', 'confirmation') 
+    }
     );
-  
+
 
 }
+
 /* get f() { return this.registerForm.controls; } */
 onSubmit() {
   this.submitted = true
