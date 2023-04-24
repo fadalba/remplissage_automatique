@@ -3,7 +3,7 @@
 <div  style=" height: 60px; margin-left: 5%; background-color: #D9D9D9; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
 <p style="padding: 15px;">DASHBOARD</p>
 </div>
-<section class="contenaire" style="margin-top: 10%; margin-left:35% ;" >
+<section class="contenaire" style="margin-top: 5%; margin-left:35% ;" >
     <!-- Jumbotron -->
      
           <div class="col-lg-6 mb-5 mb-lg-0">
@@ -15,7 +15,8 @@
                     <label class="form-label" for="form3Example3">Actuelpassword</label>
                     <input type="password" id="form3Example3" class="form-control" 
                     placeholder="actuelpassword" minlength="6"
-                    formControlName="actuelpassword" />
+                    formControlName="actuelpassword"
+                    [ngClass]="{'is-invalid':submitted && registerForm.controls['actuelpassword'].errors} " />
                     
                   </div>
                   <div *ngIf="  registerForm.controls['actuelpassword'].dirty  && registerForm.controls['actuelpassword'].errors"class="text-danger" >
@@ -33,10 +34,11 @@
                     <label class="form-label" for="form3Example3">Newpassword</label>
                     <input type="password" id="form3Example3" class="form-control" 
                     placeholder="newpassword" minlength="6"
-                    formControlName="newpassword"/>
+                    formControlName="newpassword"
+                    [ngClass]="{'is-invalid':submitted && registerForm.controls['newpassword'].errors} "/>
                     
                   </div>
-                  <div *ngIf="  registerForm.controls['newpassword'].dirty  && registerForm.controls['newpassword'].errors"class="text-danger" >
+                  <div *ngIf=" registerForm.controls['newpassword'].dirty  && registerForm.controls['newpassword'].errors"class="text-danger" >
                     <p *ngIf=" registerForm.controls['newpassword'].errors['required']"
                     class="text-red-500 mb-2 text-xs font-sans">
                 Champ Vide        </p>
@@ -52,7 +54,8 @@
                     <label class="form-label" for="form3Example3">Confirmation</label>
                     <input type="password" id="form3Example4" class="form-control"
                     placeholder="confirmation" minlength="6"
-                    formControlName="confirmation" />
+                    formControlName="confirmation" 
+                    [ngClass]="{'is-invalid':submitted && registerForm.controls['confirmation'].errors} "/>
                    
                   </div>
                   
@@ -60,9 +63,9 @@
                     <p *ngIf=" registerForm.controls['confirmation'].errors['required']"
                     class="text-red-500 mb-2 text-xs font-sans">
                 Champ Vide        </p>
-                  <p *ngIf="registerForm.controls['confirmation'].errors['minlength']"
+                  <p *ngIf="registerForm.controls['confirmation'].dirty && registerForm.controls['confirmation'].errors && registerForm.controls['confirmation'].errors['mustMatch']"
                     class="text-red-500 text-xs font-sans">
-                    Minimum 6 caractères
+                    Les mots de passes ne correspondent pas
                   </p>
                 
                   </div>
