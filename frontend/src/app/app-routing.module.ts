@@ -15,7 +15,7 @@ const routes: Routes = [
   { path:'systeme',component: SystemeComponent},
   { path: 'header', component: HeaderComponent, canActivate: [AuthGuard] },
    { path: 'formulaire', component:NavformComponent, canActivate:[AuthuserGuard]},
-   {path: 'sidebar', component:SidebarComponent /*,canActivate:[AuthGuard]*/},
+   {path: 'sidebar', component:SidebarComponent ,canActivate:[AuthGuard]},
    {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
 
 

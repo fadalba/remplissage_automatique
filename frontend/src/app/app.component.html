@@ -4,18 +4,19 @@
  <div style="width:100%; margin-top: -20px;">
   <div style="top:0px">
     <div style="background-color:black; height: 80px;">
-      <div><p style="color: aliceblue;" class="hidden-lg hidden-md "></p></div>
+      <div><p style="color:blue; font-size: 24px;" class="hidden-lg hidden-md "></p></div>
       <div style="display: flex;gap: 5rem;align-items: center; color:rgb(251, 246, 246);" class="col-md-3">
 
          <div> <p style="color:#fefafa; ; " class="fs-5"></p></div>
         </div>
         <div class="d-flex justify-content-center" style="">
-          <div><p style="color:#fefafa;" class="fs-5">{{CurrentTime}}</p></div>
+          <div><p style="color:blue; font-size: 24px;" >{{CurrentTime}}</p></div>
         </div>
-      <div class="d-flex justify-content-end pull-right" style="margin-top: -40px;">
-        <button  type="button" class="btn btn-outline-danger" title="Deconnection" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-box-arrow-left"></i>
-        </button>
+      <div class="d-flex justify-content-end pull-right" style="margin-top: -50px;margin-right: 15px;">
+        <button (click)="logout()" type="button" class="btn btn-outline-danger" title="Deconnection" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace-fill" viewBox="0 0 16 16">
+            <path d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/>
+          </svg>        </button>
       </div>
     </div>
   </div>
