@@ -7,6 +7,8 @@ import { NavformComponent } from './navform/navform.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthuserGuard } from './auth/authuser.guard';
 import { FormulaireComponent } from './formulaire/formulaire.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent, canActivate: [AuthGuard] },
@@ -14,6 +16,9 @@ const routes: Routes = [
   { path: 'header', component: HeaderComponent, canActivate: [AuthGuard] },
   { path: 'form', component: FormulaireComponent },
    { path: 'formulaire', component:NavformComponent, canActivate:[AuthuserGuard]},
+   {path: 'sidebar', component:SidebarComponent /*,canActivate:[AuthGuard]*/},
+   {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
+
 
 
 ];
