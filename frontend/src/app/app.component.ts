@@ -15,6 +15,17 @@ showHead: any;
 currentDate = new Date();
 CurrentTime: any;
 constructor(private router: Router ) {
+
+  router.events.forEach((event) => {
+    if (event instanceof NavigationStart) {
+      if (event.url === '/connexion'|| event.url === '/') {
+        this.showHead = false;
+      } else {
+        this.showHead = true;
+
+      }
+    }
+  });
   setInterval(() => {
     this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, + 1);
 console.log(this.currentDate);
