@@ -49,13 +49,11 @@ const compteurSchema = new mongoose.Schema({
 const Compteur = mongoose.model('Compteur', compteurSchema);
 
 var fs = require('fs');
-/* var index = fs.readFileSync( '/'); */
-
 const { SerialPort } = require('serialport');
 var { ReadlineParser } = require("@serialport/parser-readline")
 const router = require('./routes/routes');
  const { Socket } = require('socket.io');
-/* const parser = SerialPort.parsers; */ 
+
 var path = require('path'); 
 const { log } = require('console');
 
