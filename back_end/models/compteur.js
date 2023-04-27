@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 
 const rempli = new mongoose.Schema({
 nbr_rempli: {
-type: String
+    type: Number,
+    default: 0
 },
 
 Date: {
-type: Date
+type: String
 },
 Heure: {
-    type: Date
+    type: String
     }
 
 })
