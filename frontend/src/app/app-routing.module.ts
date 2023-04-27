@@ -9,15 +9,23 @@ import { AuthuserGuard } from './auth/authuser.guard';
 import { FormulaireComponent } from './formulaire/formulaire.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ParametreComponent } from './parametre/parametre.component';
+import { HistoriqueComponent } from './historique/historique.component';
 
 const routes: Routes = [
-  { path: 'connexion', component: ConnexionComponent, canActivate: [AuthGuard] },
+  { path: '', component: ConnexionComponent, canActivate: [AuthGuard] },
   { path:'systeme',component: SystemeComponent},
   { path: 'header', component: HeaderComponent, canActivate: [AuthGuard] },
+
   { path: 'form', component: FormulaireComponent },
    { path: 'formulaire', component:NavformComponent, canActivate:[AuthuserGuard]},
-   {path: 'sidebar', component:SidebarComponent /*,canActivate:[AuthGuard]*/},
-   {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
+     {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
+  {path: 'parametre', component:ParametreComponent /*,canActivate:[AuthGuard]*/},
+  {path: 'historique', component:HistoriqueComponent /*,canActivate:[AuthGuard]*/},
+
+
+
+   { path: 'formulaire', component:FormulaireComponent},
 
 
 
