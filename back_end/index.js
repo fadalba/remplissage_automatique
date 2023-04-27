@@ -40,7 +40,6 @@ console.log('Database Connected')
 })
 
 
-
 var fs = require('fs');
 const { SerialPort } = require('serialport');
 var { ReadlineParser } = require("@serialport/parser-readline")

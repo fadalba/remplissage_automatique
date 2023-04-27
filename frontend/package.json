@@ -18,7 +18,15 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
+<<<<<<< HEAD
     "@fortawesome/fontawesome-free": "^6.4.0",
+=======
+
+    "@fortawesome/fontawesome-free": "^6.4.0",
+
+    "angular-http-auth-interceptor": "^1.0.4",
+
+>>>>>>> 4a37d2c40e6b0784c461093413a2d9c58c6e4e01
     "bootstrap": "^5.2.3",
     "ngx-pagination": "^6.0.3",
     "ngx-socket-io": "^4.4.0",
