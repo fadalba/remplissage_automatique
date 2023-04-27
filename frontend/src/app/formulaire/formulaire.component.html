@@ -1,4 +1,3 @@
-
 <!-- Section: Design Block -->
 <div><p style="font-size: 24px;  padding: 1%; margin-left: 4%;">MODIFICATION MOT DE PASSE</p></div>
 <div  style=" height: 60px; margin-left: 5%; background-color: #D9D9D9; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
@@ -18,7 +17,7 @@
                     placeholder="actuelpassword" minlength="6"
                     formControlName="actuelpassword"
                     [ngClass]="{'is-invalid':submitted && registerForm.controls['actuelpassword'].errors} " />
-                    
+
                   </div>
                   <div *ngIf="  registerForm.controls['actuelpassword'].dirty  && registerForm.controls['actuelpassword'].errors"class="text-danger" >
                     <p *ngIf=" registerForm.controls['actuelpassword'].errors['required']"
@@ -37,7 +36,7 @@
                     placeholder="newpassword" minlength="6"
                     formControlName="newpassword"
                     [ngClass]="{'is-invalid':submitted && registerForm.controls['newpassword'].errors} "/>
-                    
+
                   </div>
                   <div *ngIf=" registerForm.controls['newpassword'].dirty  && registerForm.controls['newpassword'].errors"class="text-danger" >
                     <p *ngIf=" registerForm.controls['newpassword'].errors['required']"
@@ -55,9 +54,9 @@
                     <label class="form-label" for="form3Example3">Confirmation</label>
                     <input type="password" id="form3Example4" class="form-control"
                     placeholder="confirmation" minlength="6"
-                    formControlName="confirmation" 
+                    formControlName="confirmation"
                     [ngClass]="{'is-invalid':submitted && registerForm.controls['confirmation'].errors} "/>
-                   
+
                   </div>
 
                   <div *ngIf=" registerForm.controls['confirmation'].dirty  && registerForm.controls['confirmation'].errors"class="text-danger" >
@@ -83,7 +82,7 @@
                  <!--  <button type="submit" class="btn btn-success btn-block mb-4" style="margin-left: 83%;margin-top: -20%;">
                     Retour
                   </button> -->
-                      
+
                 </form>
               </div>
             </div>
@@ -93,4 +92,3 @@
     <!-- Jumbotron -->
   </section>
   <!-- Section: Design Block -->
-

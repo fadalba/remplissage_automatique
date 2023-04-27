@@ -1,11 +1,11 @@
 const express = require('express');/* recupere la variable express dans la boite express */
 const mongoose  = require('mongoose'); //gere link api base de donnees
 const Model = require('./models/users');
+const Compteur = require('./models/compteur');
 const jwt = require("jsonwebtoken");
 require('dotenv').config();/* pour recuperer le fichier env */
 var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors') //configuration des differentes requettes pour acceder aux ressources
-// const Model = require('../back_end/models/userModel');
 // const jwt = require("jsonwebtoken");
 const routes = require('./routes/routes');
 
@@ -16,7 +16,7 @@ const database = mongoose.connection
 
 const app = express(); /* express sert a ecouté les ports et à envoyer des données */
 
-app.use(cors({origin:'*'}));/*   */
+app.use(cors({origin:'*'}));/* Il s'agit d'un mécanisme permettant d'autoriser ou de restreindre les ressources demandées sur un serveur Web en fonction de l'endroit où la requête HTTP a été lancée.  */
 
 app.use(express.json());/* affiche les fichiers au format json */
 
@@ -39,14 +39,6 @@ console.log('Database Connected')
 
 })
 
-// nouvelle methode insertion 
-const compteurSchema = new mongoose.Schema({
-  total: {
-    type: Number,
-    default: 0
-  }
-});
-const Compteur = mongoose.model('Compteur', compteurSchema);
 
 var fs = require('fs');
 const { SerialPort } = require('serialport');
@@ -66,7 +58,6 @@ const { log } = require('console');
 });  
  var parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' })); 
 
-/* port.pipe(parser); */
 var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.vk1j3ac.mongodb.net/soutenance";
 
 
@@ -136,14 +127,14 @@ io.on('connection', function(socket) {
     if (mois < 10) { mois = '0' + mois; }
     if (sec < 10) { sec = '0' + sec; }
     if (min < 10) { min = '0' + min; }
-    //var heureInsertion = heur + ':' + min + ':' + sec;
-    //var heureEtDate = laDate  + '-' + mois + '-' +  numMois; 
+    var heureInsertion = heur + ':' + min + ':' + sec;
+    var heureEtDate = laDate  + '-' + mois + '-' +  numMois; 
    
-    const fetchMovies = (socket) => {
+   /*  const fetchMovies = (socket) => {
         data.findAll()
             .then(data => io.emit('fetchMovies', data))
             .catch(logError)
-    }
+    } */
    
  
  // nouvelle methode insertion 
@@ -158,7 +149,7 @@ parser.on('data', (data) => {
 });
 
 // À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
-const nouveauCompteur = new Compteur({ total: totalRempli });
+const nouveauCompteur = new Compteur({ total: totalRempli, Date:heureEtDate, Heure: heureInsertion });
 nouveauCompteur.save((err) => {
   if (err) {
     console.error(err);

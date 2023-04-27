@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const check = require('./midleware');
 var MongoClient = require('mongodb').MongoClient;
 const router = express.Router();
-var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.9vbufn8.mongodb.net/test";
+var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.vk1j3ac.mongodb.net/soutenance";
 const Model = require('../models/users');
 
 module.exports = router;
@@ -78,7 +78,7 @@ try {
   const oldUser = await Model.findOne({ email });
 
   if (oldUser) {
-    return res.status(409).send("Email Already Exist. Please Login");
+    return res.status(409).send("Cet utilisateur existe déja. Veuillez vous connecter");
   }
 
     const hash = await bcrypt.hash(newUser.password,10);
