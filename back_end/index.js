@@ -153,7 +153,7 @@ nouveauCompteur.save((err) => {
   } else {
     console.log(`Compteur final enregistré : ${totalRempli}`);
 
-    /// Cron job pour exécuter la fonction à 23h59min59sec tous les jours
+/*     /// Cron job pour exécuter la fonction à 23h59min59sec tous les jours   ok 
 cron.schedule(' * * * * *', async () => { // format de l'heure : sec min HH et *** signifie tous les jours
   // Calculer les variables totales pour toutes les données de la journée
   const startDate = moment().startOf('day').toDate();
@@ -173,7 +173,7 @@ sommeTotale.save((err) => {
   } else {
     console.log(`Somme totale enregistrée : ${totalSum}`);
   }}) 
-});
+}); */
   }
    
 });
