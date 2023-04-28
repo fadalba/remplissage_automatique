@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MustMatch } from '../must-match.validator';
-import { UserService } from 'src/app/services/user.service';
+import { UsersService } from '../services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +17,7 @@ export class SidebarComponent  implements OnInit{
   submitted = false
  
   constructor(private formBuilder: FormBuilder, private router: Router ,
-    public userService: UserService) {
+    public userService: UsersService) {
     setInterval(() => {
       this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, + 1);
 console.log(this.currentDate);

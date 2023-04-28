@@ -29,7 +29,6 @@ const config: SocketIoConfig= {
     HeaderComponent,
     NavformComponent,
     ConnexionComponent,
-    SidebarComponent,
     DashboardComponent,
     ParametreComponent,
     HistoriqueComponent
