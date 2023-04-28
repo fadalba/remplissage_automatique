@@ -42,12 +42,12 @@ export class UsersService {
     getToken() {
     return localStorage.getItem('currentUser');
   }
-  getPrenom() {
-    return localStorage.getItem('prenom');
-  }
-  getnom() {
-    return localStorage.getItem('nom');
-  }
+  // getPrenom() {
+  //   return localStorage.getItem('prenom');
+  // }
+  // getnom() {
+  //   return localStorage.getItem('nom');
+  // }
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('currentUser');
     return authToken !== null ? true : false;
