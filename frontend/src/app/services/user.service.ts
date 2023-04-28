@@ -7,21 +7,37 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  endpoint: any;
+  endpoint: string = 'http://localhost:3001/api';
   httpClient: any;
+  router: any;
 
   constructor(private http: HttpClient, private route: Router) { }
 
   //modification password user
-  updatePassword(id: any, data: any): Observable<any> {
+  onSubmit(id: any, data: any): Observable<any> {
     console.log(id);
 
     console.log(data);
 
    //let API_URL = `${this.endpoint}/updateUser/${id}`;
 
-    return this.http.patch(`http://localhost:3001/endpoint/updateUser/${id}`, {"actuelPass": data.actuelPass,
-  "newPass":data.newPass})
+    return this.http.patch(`${this.endpoint}/update/${id}`, 
+    {"actuelPassword": data.actuelPass,
+  "newPassword":data.newPass})
   }
+  getToken() {
+    return localStorage.getItem('access_token');
+  }
+  get isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('access_token');
+    return authToken !== null ? true : false;
+  }
+  doLogout() {
+    let removeToken = localStorage.removeItem('access_token');
+    if (removeToken == null) {
+      this.router.navigate(['login']);
+    }
+  }
+
 
 }
