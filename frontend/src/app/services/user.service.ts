@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, } from '@angular/common/http';
 import { User } from '../../../model/user.model';
 import { env } from 'src/env';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Router } from '@angular/router';
 
 
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 
 export class UsersService {
   private currentUserSubject: BehaviorSubject<User>;
-
+  endpoint: string = 'http://localhost:3001/api';
+  http: any;
   constructor(private httpClient:HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse((localStorage.getItem('currentUser')!)));
    /*  if (this.currentUserSubject.value == null) {
@@ -94,9 +95,30 @@ export class UsersService {
  // if (removeToken == null && removeprenom == null &&  removenom == null && removemail == null) {
     // }
   }
+ 
+
+
  /*  getRole(){
     return localStorage.getItem('role');
   } */
+//Update mdp
+updatepass(id: any, data: any): Observable<any> {
+
+
+  return this.httpClient.patch<User>(`${this.endpoint}/update/${id}`,
+  {"actuelpassword": data.actuelpassword,
+"newpassword":data.newpassword})
+
+}
+
+
+doLogout() {
+  let removeToken = localStorage.removeItem('access_token');
+  if (removeToken == null) {
+    this.router.navigate(['/']);
+  }
+}
+  
 }
 
 

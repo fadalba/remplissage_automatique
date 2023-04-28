@@ -11,6 +11,7 @@ export interface User {
     email:String;
     nom: String;
   prenom: String;
+  password?: String;
 };
 }
 

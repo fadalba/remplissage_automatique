@@ -15,6 +15,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ParametreComponent } from './parametre/parametre.component';
 import { HistoriqueComponent } from './historique/historique.component';
+import { CommonModule } from '@angular/common';
+import { UsersService } from './services/user.service';
 
 const config: SocketIoConfig= {
   url: 'http://localhost:3001',
@@ -31,10 +33,14 @@ const config: SocketIoConfig= {
     ConnexionComponent,
     DashboardComponent,
     ParametreComponent,
-    HistoriqueComponent
+    HistoriqueComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
      ReactiveFormsModule,
