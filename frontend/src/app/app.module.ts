@@ -11,7 +11,6 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
-import { FormulaireComponent } from './formulaire/formulaire.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ParametreComponent } from './parametre/parametre.component';
@@ -30,7 +29,6 @@ const config: SocketIoConfig= {
     HeaderComponent,
     NavformComponent,
     ConnexionComponent,
-    FormulaireComponent,
     SidebarComponent,
     DashboardComponent,
     ParametreComponent,
