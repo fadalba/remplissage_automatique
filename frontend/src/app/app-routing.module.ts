@@ -15,11 +15,11 @@ const routes: Routes = [
   { path: '', component: ConnexionComponent, canActivate: [AuthGuard] },
   { path:'systeme',component: SystemeComponent},
   { path: 'header', component: HeaderComponent, canActivate: [AuthGuard] },
-
-   { path: 'formulaire', component:NavformComponent, canActivate:[AuthuserGuard]},
-     {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
+  {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
   {path: 'parametre', component:ParametreComponent /*,canActivate:[AuthGuard]*/},
   {path: 'historique', component:HistoriqueComponent /*,canActivate:[AuthGuard]*/},
+
+
 
 
 
