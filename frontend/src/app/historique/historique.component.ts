@@ -12,7 +12,7 @@ export class HistoriqueComponent implements OnInit{
   searchText!: string;
 itemsperpage: number =5;
 p: number = 1; // pagination index
-filtre!: any;
+filtre:  any[] = [];
 restaure!:any;  // ecraser les données de la recherche
 total1: number = 0; // pour bouteille 100ml
 total2: number = 0; // pour bouteille  200ml
@@ -25,16 +25,20 @@ constructor(private service: RemplissageService) {}
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
     });
+
     this.service.getTotal2().subscribe((data:any) =>{
       this.total2= data.total2;
+
     }
     );
     this.service.getTotal2().subscribe((data:any) => {
       // console.log(data);
        this.filtre=data as unknown as Compteur[]
        this.restaure=data as unknown as Compteur[]
-      // console.log(this.filter_entree);
+      // console.log(this.filtre);
         })
+
+
     throw new Error('Revoir votre implémentation, il ya erreur ');
   }
   public afficher():void{
@@ -46,7 +50,7 @@ constructor(private service: RemplissageService) {}
 
 calend(e:any) {
   const search = new Date(e.target.value)
- // console.log(e.target.value)
+ console.log(e.target.value)
   if (e.target.value == '') { // pour vider la recherche et restaurer la liste
     this.filtre = this.restaure as unknown as Compteur[]
     return
@@ -56,9 +60,9 @@ calend(e:any) {
   this.filtre = this.filtre.filter((el:any) => { // pour filtrer la recherche
     const date = new Date(el.date)
 
-    //console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
+    console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
 
-    return date.getFullYear() === search.getFullYear() && date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
+    return date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
   })
 
 

@@ -142,52 +142,23 @@ parser.on('data', (data) => {
   totalRempli++;
 
   // Afficher la nouvelle valeur du compteur
-  console.log(`Compteur : ${totalRempli}`);
-});
-
-// À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
-const nouveauCompteur = new Compteur({ total: totalRempli, Date:heureEtDate, Heure: heureInsertion });
+  // À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
+const nouveauCompteur = new Compteur({ total1: totalRempli, total2: totalRempli, Date:heureEtDate, Heure: heureInsertion });
 nouveauCompteur.save((err) => {
   if (err) {
     console.error(err);
   } else {
     console.log(`Compteur final enregistré : ${totalRempli}`);
 
-/*     /// Cron job pour exécuter la fonction à 23h59min59sec tous les jours   ok 
-cron.schedule(' * * * * *', async () => { // format de l'heure : sec min HH et *** signifie tous les jours
-  // Calculer les variables totales pour toutes les données de la journée
-  const startDate = moment().startOf('day').toDate();
-  const endDate = moment().endOf('day').toDate();
 
-  const results = await DataModel.find({ Date: { $gte: startDate, $lte: endDate } }).exec();
-  
-  const totalSum = results.reduce((acc, curr) => acc + curr.nbr_rempli, 0);
 
-  console.log(`Le totale des bouteilles remplies aujourd'hui est ${totalSum}`);
-
-  // calcul
-const sommeTotale = new totalRempli({ total: nbr_rempli, Date: startDate, Heure: moment().format('HH:mm:ss') });
-sommeTotale.save((err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`Somme totale enregistrée : ${totalSum}`);
-  }}) 
-}); */
-
-// Récupérer la somme des bouteilles remplies pour chaque catégorie
-const pipeline = [
-  { $group: { _id: '$categorie', total: { $sum: '$bouteillesRemplies' } } }
-];
-
-// Mettre à jour les propriétés total1 et total2 de notre base de données
-Compteur.bulkWrite([
-  { updateOne: { filter: { _id: '644ba5bc872f807cc73f26a5' }, update: { total1: 0 } } }, // je remplace 0 par variable som_tot1
-  { updateOne: { filter: { _id: '644ba5bc872f807cc73f26a5' }, update: { total2: 0 } } }// je remplace 0 par variable som_tot2
-], { ordered: false });
   }
    
 });
+
+  console.log(`Compteur : ${totalRempli}`);
+});
+
 
 
 
