@@ -41,16 +41,16 @@ logout() {
     cancelButtonColor: "blue" ,
     showCancelButton: true,
     confirmButtonText: 'oui',
-    cancelButtonText: 'Annuler',
+    cancelButtonText: 'NON',
 
 
   })
   .then((result) => {
     if(result.isConfirmed){
-      this.router.navigateByUrl('login')
+      this.router.navigateByUrl('')
       localStorage.removeItem('currentUser');
-      localStorage.removeItem('prenom');
-      localStorage.removeItem('nom');
+      // localStorage.removeItem('prenom');
+      // localStorage.removeItem('nom');
     localStorage.removeItem('email');
     }
   })

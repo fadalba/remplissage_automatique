@@ -31,8 +31,8 @@ export class UsersService {
        /*  console.log(user.data)  */
         localStorage.setItem('currentUser', JSON.stringify(res.data?.token));
         localStorage.setItem('email', JSON.stringify(res.data?.email));
-        localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
-        localStorage.setItem('nom', JSON.stringify(res.data?.nom));
+        // localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
+        // localStorage.setItem('nom', JSON.stringify(res.data?.nom));
         this.currentUserSubject.next(res);
         return res;
 
@@ -86,8 +86,8 @@ export class UsersService {
 
   getLogOut(){
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('prenom');
-  localStorage.removeItem('nom');
+  // localStorage.removeItem('prenom');
+  // localStorage.removeItem('nom');
   localStorage.removeItem('email');
  // this.router.navigate(['']);
  // if (removeToken == null && removeprenom == null &&  removenom == null && removemail == null) {
