@@ -14,7 +14,7 @@ import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ParametreComponent } from './parametre/parametre.component';
-import { HistoriqueComponent } from './historique/historique.component'
+import { HistoriqueComponent } from './historique/historique.component';
 
 const config: SocketIoConfig= {
   url: 'http://localhost:3001',
