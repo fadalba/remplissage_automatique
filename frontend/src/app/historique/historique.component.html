@@ -25,12 +25,18 @@
  <tbody>
    <tr>
      <!-- <th rowspan="3" scope="row" class="text-center">Temperature en °C</th> -->
-     <td><p style="text-align: center; font-size: 24px;" >22/03/2023</p> </td>
-     <td><p style="text-align: center; font-size: 24px; " >50</p></td>
-     <td><p style="text-align: center; font-size: 24px;" >80</p></td>
+    <!--  <td><p style="text-align: center; font-size: 24px;" >220232/03/</p> </td>
+     <td><p style="text-align: center; font-size: 24px; " >{{total1}}</p></td>
+     <td><p style="text-align: center; font-size: 24px;" >{{total2}}</p></td> -->
+     <tr
+     *ngFor="let histo of filtre | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
+
+     <td  align="center">{{histo.Date}} </td>
+     <td align="center">{{histo.total1}}</td>
+     <td align="center">{{histo.total2}} </td>
+
    </tr>
 
- </tbody>
 </table>
 </div>
 

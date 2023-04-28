@@ -174,31 +174,21 @@ sommeTotale.save((err) => {
     console.log(`Somme totale enregistrée : ${totalSum}`);
   }}) 
 }); */
+
+// Récupérer la somme des bouteilles remplies pour chaque catégorie
+const pipeline = [
+  { $group: { _id: '$categorie', total: { $sum: '$bouteillesRemplies' } } }
+];
+
+// Mettre à jour les propriétés total1 et total2 de notre base de données
+Compteur.bulkWrite([
+  { updateOne: { filter: { _id: '644ba5bc872f807cc73f26a5' }, update: { total1: 0 } } }, // je remplace 0 par variable som_tot1
+  { updateOne: { filter: { _id: '644ba5bc872f807cc73f26a5' }, update: { total2: 0 } } }// je remplace 0 par variable som_tot2
+], { ordered: false });
   }
    
 });
 
-/*  /// Cron job pour exécuter la fonction à 23h59min59sec tous les jours
-cron.schedule('00 23  21 * * *', async () => {
-  // Calculer les variables totales pour toutes les données de la journée
-  const startDate = moment().startOf('day').toDate();
-  const endDate = moment().endOf('day').toDate();
-
-  const results = await DataModel.find({ Date: { $gte: startDate, $lte: endDate } }).exec();
-  
-  const totalSum = results.reduce((acc, curr) => acc + curr.nbr_rempli, 0);
-
-  console.log(`Le totale des bouteilles remplies aujourd'hui est ${totalSum}`);
-
-  // calcul
-const sommeTotale = new totalRempli({ total: nbr_rempli, Date: startDate, Heure: moment().format('HH:mm:ss') });
-sommeTotale.save((err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`Somme totale enregistrée : ${totalSum}`);
-  }}) 
-}); */
 
 
 parser.on('mute', function(mute){
