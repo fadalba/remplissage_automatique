@@ -13,7 +13,7 @@ ngOnInit(): void {
 
 }
 systemeOn(){
-  this.img1 = false;
+  this.img1 === false? this.img1 = true:this.img1 = false;
   }
   systemeOff(){
     this.img1 = true;
