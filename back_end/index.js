@@ -8,6 +8,8 @@ var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors') //configuration des differentes requettes pour acceder aux ressources
 // const jwt = require("jsonwebtoken");
 const routes = require('./routes/routes');
+const cron = require('node-cron'); // planificateur pour l'insertion avec le temps
+const moment = require('moment'); // planificateur pour le moment exact de l'insertion
 
 const databaseLink = process.env.DATABASE_URL /* permet de recuperer le lien de la base de donnée */
 
@@ -35,7 +37,7 @@ const io = require('socket.io')(http);
 
 database.once('connected', ()=> {
     
-console.log('Database Connected')
+console.log('base de données Connectée')
 
 })
 
@@ -61,7 +63,7 @@ const { log } = require('console');
 var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.vk1j3ac.mongodb.net/soutenance";
 
 
-var temoin = '0'
+/* var temoin = '0' */
 
 
 io.on('connection', function(socket) {
@@ -130,11 +132,6 @@ io.on('connection', function(socket) {
     var heureInsertion = heur + ':' + min + ':' + sec;
     var heureEtDate = laDate  + '-' + mois + '-' +  numMois; 
    
-   /*  const fetchMovies = (socket) => {
-        data.findAll()
-            .then(data => io.emit('fetchMovies', data))
-            .catch(logError)
-    } */
    
  
  // nouvelle methode insertion 
@@ -155,12 +152,55 @@ nouveauCompteur.save((err) => {
     console.error(err);
   } else {
     console.log(`Compteur final enregistré : ${totalRempli}`);
+
+/*     /// Cron job pour exécuter la fonction à 23h59min59sec tous les jours   ok 
+cron.schedule(' * * * * *', async () => { // format de l'heure : sec min HH et *** signifie tous les jours
+  // Calculer les variables totales pour toutes les données de la journée
+  const startDate = moment().startOf('day').toDate();
+  const endDate = moment().endOf('day').toDate();
+
+  const results = await DataModel.find({ Date: { $gte: startDate, $lte: endDate } }).exec();
+  
+  const totalSum = results.reduce((acc, curr) => acc + curr.nbr_rempli, 0);
+
+  console.log(`Le totale des bouteilles remplies aujourd'hui est ${totalSum}`);
+
+  // calcul
+const sommeTotale = new totalRempli({ total: nbr_rempli, Date: startDate, Heure: moment().format('HH:mm:ss') });
+sommeTotale.save((err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`Somme totale enregistrée : ${totalSum}`);
+  }}) 
+}); */
   }
+   
 });
 
- 
+/*  /// Cron job pour exécuter la fonction à 23h59min59sec tous les jours
+cron.schedule('00 23  21 * * *', async () => {
+  // Calculer les variables totales pour toutes les données de la journée
+  const startDate = moment().startOf('day').toDate();
+  const endDate = moment().endOf('day').toDate();
 
- 
+  const results = await DataModel.find({ Date: { $gte: startDate, $lte: endDate } }).exec();
+  
+  const totalSum = results.reduce((acc, curr) => acc + curr.nbr_rempli, 0);
+
+  console.log(`Le totale des bouteilles remplies aujourd'hui est ${totalSum}`);
+
+  // calcul
+const sommeTotale = new totalRempli({ total: nbr_rempli, Date: startDate, Heure: moment().format('HH:mm:ss') });
+sommeTotale.save((err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`Somme totale enregistrée : ${totalSum}`);
+  }}) 
+}); */
+
+
 parser.on('mute', function(mute){
 MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
     if (err) throw err;
@@ -177,5 +217,5 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
 })
  })
  http.listen(3001, ()=>{
-  console.log('server started at ${3001}')/* apres avoir ecouter le port 3001 affiche les données */
+  console.log('Serveur démarré au port ${3001}')/* apres avoir ecouter le port 3001 affiche les données */
 })
