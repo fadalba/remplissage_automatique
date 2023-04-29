@@ -156,31 +156,15 @@ res.status(400).json({ message: error.message })
 })
 
 /* get all method */
-router.get('/getAllc', async(req, res) => {
-  try{
-  /* const data = await Modeltemp.find();
-rs  console.log(data);
-  res.json(data) */
-
-  MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("soutenance");
-    var col = dbo.collection('compteur');
-    col.find().toArray(function(err, items) {
-        console.log(items);
-             res.json(items)
-console.log(items);
-
-})
-
-})
-  }
-  catch(error){
-  res.status(500).json({message: error.message})
-  }
-  })
-
- 
+  router.get('/getAllc', async(req, res) => {
+    try{
+    const data = await compter.find();
+    res.json(data)
+    }
+    catch(error){
+    res.status(500).json({message: error.message})
+    }
+    })
 
   // 
   router.get('/cpt', async(req, res) => {
@@ -198,6 +182,8 @@ console.log(items);
     catch (error) {
     res.status(400).json({ message: error.message })
     }
+
+    
 
     router.post('/cpt', async(req, res) => {
 

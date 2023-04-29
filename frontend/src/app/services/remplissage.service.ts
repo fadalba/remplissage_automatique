@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class RemplissageService {
   rempli: any;
-  endpoint: any;
+  private url = 'http://localhost:3001/api/getAllc';
   httpClient: any;
 
   constructor(private socket: Socket, private http: HttpClient, private route: Router) {}
@@ -85,16 +85,18 @@ const donnee = { "newPassword": data.newPass, "password": data.actuelPass }
   }
 
 
- /* getremplissage(){
+ /*  getremplissage(){
 
   return this.http.get(`http://localhost:3001/remplissage`)
-} */
-
+}
+ */
 getTotal1() {
-  return this.http.get(`http://localhost:3001/total1`);
+  return this.http.get<any[]>(this.url);
 }
 
 getTotal2() {
-  return this.http.get(`http://localhost:3001/total2`);
+  return this.http.get<any[]>(this.url);
 }
 }
+
+
