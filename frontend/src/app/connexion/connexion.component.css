@@ -1,5 +1,6 @@
-.section{
-
-    background-color: #000;
-  }
-  
+.img{
+    background-repeat: no-repeat;
+    height : 100%;
+width : 100%;
+background-size: cover;
+}
