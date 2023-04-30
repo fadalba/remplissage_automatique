@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./historique.component.css']
 })
 export class HistoriqueComponent implements OnInit{
+  // searchDate!: string;
+  // results: any[] = [];
   show:boolean=false;
   searchText!: string;
+  currentDte!:any
+public hist:any=[];
 itemsperpage: number =5;
 p: number = 1; // pagination index
 filtre:  any[] = [];
@@ -21,9 +25,18 @@ totalLenght: string|number|undefined;
 
 
 constructor(private service: RemplissageService) {}
+
+
+// onSubmit() {
+//   this.service.searchByDate(this.searchDate).subscribe((data: any) => {
+//     this.results = data;
+//   });
+// }
+
   ngOnInit(): void {
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
+
     });
 
     this.service.getTotal2().subscribe((data:any) =>{
@@ -40,10 +53,14 @@ constructor(private service: RemplissageService) {}
 
 
     throw new Error('Revoir votre implémentation, il ya erreur ');
+
   }
+
+
   public afficher():void{
     this.show = !this.show;
   }
+
 
 
   //recherche par calendrier

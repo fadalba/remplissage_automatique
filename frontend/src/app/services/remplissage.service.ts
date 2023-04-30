@@ -8,11 +8,19 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RemplissageService {
+  filter(arg0: (e: any) => boolean): number {
+    throw new Error('Method not implemented.');
+  }
   rempli: any;
   private url = 'http://localhost:3001/api/getAllc';
   httpClient: any;
 
   constructor(private socket: Socket, private http: HttpClient, private route: Router) {}
+
+  // searchByDate(date: string) {
+  //   return this.http.get(`${this.url}/search?date=${date}`);
+  // }
+
   tapisON() {
     this.socket.emit('systeme', '4')
   }

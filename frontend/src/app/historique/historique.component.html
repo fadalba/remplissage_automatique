@@ -4,7 +4,17 @@
 </div>
 
 <div class="container">
-  <form class="form-inline my-2 my-lg-3 row "   >
+  <!-- <form (ngSubmit)="onSubmit()">
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" [(ngModel)]="searchDate">
+    <button type="submit">Rechercher</button>
+  </form>
+
+  <ul *ngIf="results">
+    <li *ngFor="let result of results">{{result}}</li>
+  </ul> -->
+
+  <!-- <form class="form-inline my-2 my-lg-3 row "   >
    <div class="d-flex gap-1" >
      <input *ngIf="show" style="width: 30%;" id="search" class="form-control" type="date" name="search" placeholder="Rechercher" [(ngModel)]="searchText">
      <button class="btn btn-outline-primary" (click)="afficher()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -13,7 +23,7 @@
    </div>
    <input (change)="calend($event)" class="form-control me-2" type="date" id="cal" name="calendrier">
 
- </form>
+ </form> -->
 <table class="table table-bordered rounded-3">
 
  <thead style="height: 20px; background-color: #477AFD;">
