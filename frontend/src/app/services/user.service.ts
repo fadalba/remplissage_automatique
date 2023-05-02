@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, } from '@angular/common/http';
 import { User } from '../../../model/user.model';
 import { env } from 'src/env';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Router } from '@angular/router';
 
 
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 
 export class UsersService {
   private currentUserSubject: BehaviorSubject<User>;
-
+  endpoint: string = 'http://localhost:3001/api';
+  http: any;
   constructor(private httpClient:HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse((localStorage.getItem('currentUser')!)));
    /*  if (this.currentUserSubject.value == null) {
@@ -31,8 +32,8 @@ export class UsersService {
        /*  console.log(user.data)  */
         localStorage.setItem('currentUser', JSON.stringify(res.data?.token));
         localStorage.setItem('email', JSON.stringify(res.data?.email));
-        localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
-        localStorage.setItem('nom', JSON.stringify(res.data?.nom));
+        // localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
+        // localStorage.setItem('nom', JSON.stringify(res.data?.nom));
         this.currentUserSubject.next(res);
         return res;
 
@@ -42,12 +43,12 @@ export class UsersService {
     getToken() {
     return localStorage.getItem('currentUser');
   }
-  getPrenom() {
-    return localStorage.getItem('prenom');
-  }
-  getnom() {
-    return localStorage.getItem('nom');
-  }
+  // getPrenom() {
+  //   return localStorage.getItem('prenom');
+  // }
+  // getnom() {
+  //   return localStorage.getItem('nom');
+  // }
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('currentUser');
     return authToken !== null ? true : false;
@@ -84,18 +85,40 @@ export class UsersService {
     return this.httpClient.post<User>(`${env.apiUrl}/post`,user);
   }
 
+
   getLogOut(){
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('prenom');
-  localStorage.removeItem('nom');
+  // localStorage.removeItem('prenom');
+  // localStorage.removeItem('nom');
   localStorage.removeItem('email');
  // this.router.navigate(['']);
  // if (removeToken == null && removeprenom == null &&  removenom == null && removemail == null) {
     // }
   }
+ 
+
+
  /*  getRole(){
     return localStorage.getItem('role');
   } */
+//Update mdp
+updatepass(id: any, data: any): Observable<any> {
+
+
+  return this.httpClient.patch<User>(`${this.endpoint}/update/${id}`,
+  {"actuelpassword": data.actuelpassword,
+"newpassword":data.newpassword})
+
+}
+
+
+doLogout() {
+  let removeToken = localStorage.removeItem('access_token');
+  if (removeToken == null) {
+    this.router.navigate(['/']);
+  }
+}
+  
 }
 
 
