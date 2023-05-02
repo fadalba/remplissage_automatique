@@ -1,6 +1,9 @@
 import { Compteur } from './../../../model/compteur';
 import { RemplissageService } from './../services/remplissage.service';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import * as moment from 'moment' // bibliothèque pour manipuler les dates
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-historique',
@@ -20,8 +23,41 @@ totalLenght: string|number|undefined;
 
 
 
-constructor(private service: RemplissageService) {}
+constructor(private http: HttpClient,private service: RemplissageService) {}
   ngOnInit(): void {
+  /*   // calcul
+  this.http.get('/api/getAllc').pipe(
+    map((data: any[]) => {
+      // Calculer les totaux
+      this.total1 = data.reduce((acc, curr) => {
+        const date = moment(curr.date);
+        if (date.hours() < 24) {
+          acc += curr.total1;
+        }
+        return acc;
+      }, 0);
+
+      this.total2 = data.reduce((acc, curr) => {
+        const date = moment(curr.date);
+        if (date.hours() < 24) {
+          acc += curr.total2;
+        }
+        return acc;
+      }, 0);
+
+      // Ajouter les totaux au tableau historique
+      this.filtre = data.concat({
+        total1: this.total1,
+        total2: this.total2,
+        date: null, // Vous pouvez utiliser la date d'aujourd'hui ou null si vous n'avez pas besoin de l'afficher dans le tableau
+        heure: null // De même pour l'heure
+      });
+    })
+  ).subscribe();
+}
+
+ */
+
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
     });
@@ -31,6 +67,8 @@ constructor(private service: RemplissageService) {}
 
     }
     );
+
+
     this.service.getTotal2().subscribe((data:any) => {
       // console.log(data);
        this.filtre=data as unknown as Compteur[]
@@ -39,8 +77,11 @@ constructor(private service: RemplissageService) {}
         })
 
 
+
     throw new Error('Revoir votre implémentation, il ya erreur ');
   }
+
+
   public afficher():void{
     this.show = !this.show;
   }
@@ -66,5 +107,11 @@ calend(e:any) {
   })
 
 
+
+
 }
+
 }
+
+
+

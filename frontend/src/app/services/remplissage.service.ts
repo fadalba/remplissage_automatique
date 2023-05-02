@@ -85,11 +85,6 @@ const donnee = { "newPassword": data.newPass, "password": data.actuelPass }
   }
 
 
- /*  getremplissage(){
-
-  return this.http.get(`http://localhost:3001/remplissage`)
-}
- */
 getTotal1() {
   return this.http.get<any[]>(this.url);
 }

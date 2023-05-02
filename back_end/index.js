@@ -159,8 +159,40 @@ nouveauCompteur.save((err) => {
   console.log(`Compteur : ${totalRempli}`);
 });
 
+/* // A tester
+// Fonction pour calculer les totaux à chaque 23h59mn59s
+function calculerTotaux() {
+  const dateDebut = new Date(); // Date et heure actuelles
+  dateDebut.setHours(0, 0, 0, 0); // Début de la journée à 00h00mn00s
 
+  const dateFin = new Date(); // Date et heure actuelles
+  dateFin.setHours(23, 59, 59, 999); // Fin de la journée à 23h59mn59s
 
+  // Utilisation de la méthode aggregate() pour filtrer les documents de la collection "compteur"
+  Compteur.aggregate([
+    // Filtrer les documents entre dateDebut et dateFin
+    { $match: { date: { $gte: dateDebut, $lt: dateFin } } },
+    // Calculer la somme de total1 et total2
+    {
+      $group: {
+        _id: null,
+        total1: { $sum: '$total1' },
+        total2: { $sum: '$total2' }
+      }
+    }
+  ]).exec((err, result) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log(result); // Afficher les totaux calculés
+  });
+}
+
+// Exécution de la fonction calculerTotaux() à chaque 23h59mn59s
+setInterval(calculerTotaux, 1000 * 60 * 60 * 24); // 24 heures
+ */
 
 parser.on('mute', function(mute){
 MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
