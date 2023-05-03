@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavformComponent } from './navform/navform.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -17,6 +18,7 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { HistoriqueComponent } from './historique/historique.component';
 import { CommonModule } from '@angular/common';
 import { UsersService } from './services/user.service';
+
 
 const config: SocketIoConfig= {
   url: 'http://localhost:3001',
@@ -41,13 +43,15 @@ const config: SocketIoConfig= {
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    Ng2SearchPipeModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
      ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
-HttpClientModule,
+    HttpClientModule,
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

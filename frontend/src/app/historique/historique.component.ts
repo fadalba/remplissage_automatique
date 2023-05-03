@@ -8,32 +8,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./historique.component.css']
 })
 export class HistoriqueComponent implements OnInit{
-  // searchDate!: string;
-  // results: any[] = [];
+filterTerm!:string;
   show:boolean=false;
-  searchText!: string;
-  currentDte!:any
 public hist:any=[];
 itemsperpage: number =5;
 p: number = 1; // pagination index
-filtre:  any[] = [];
+ filtre:  any[] = [];
 restaure!:any;  // ecraser les données de la recherche
 total1: number = 0; // pour bouteille 100ml
 total2: number = 0; // pour bouteille  200ml
 totalLenght: string|number|undefined;
+
+data: any[] = [];
 
 
 
 constructor(private service: RemplissageService) {}
 
 
-// onSubmit() {
-//   this.service.searchByDate(this.searchDate).subscribe((data: any) => {
-//     this.results = data;
-//   });
-// }
 
   ngOnInit(): void {
+
+    this.service.getData().subscribe((res: any) => {
+      this.data = res;
+    });
+
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
 
@@ -56,6 +55,20 @@ constructor(private service: RemplissageService) {}
 
   }
 
+  // filterByDate() {
+  //   if (!this.searchDate) {
+  //     this.service.getData().subscribe((res: any) => {
+  //       this.data = res;
+  //     });
+  //   } else {
+  //     const dateStr = this.searchDate instanceof Date ? this.searchDate.toISOString().substring(0, 10) : null;
+  //     this.data = this.data.filter(histo => histo.date === dateStr);
+  //     console.log(this.data);
+
+  //   }
+  // }
+
+
 
   public afficher():void{
     this.show = !this.show;
@@ -65,23 +78,23 @@ constructor(private service: RemplissageService) {}
 
   //recherche par calendrier
 
-calend(e:any) {
-  const search = new Date(e.target.value)
- console.log(e.target.value)
-  if (e.target.value == '') { // pour vider la recherche et restaurer la liste
-    this.filtre = this.restaure as unknown as Compteur[]
-    return
-  }
+// calend(e:any) {
+//   const search = new Date(e.target.value)
+//  console.log(e.target.value)
+//   if (e.target.value == '') { // pour vider la recherche et restaurer la liste
+//     this.filtre = this.restaure as unknown as Compteur[]
+//     return
+//   }
 
 
-  this.filtre = this.filtre.filter((el:any) => { // pour filtrer la recherche
-    const date = new Date(el.date)
+//   this.filtre = this.filtre.filter((el:any) => { // pour filtrer la recherche
+//     const date = new Date(el.date)
 
-    console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
+//     console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
 
-    return date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
-  })
+//     return date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
+//   })
 
 
-}
+// }
 }

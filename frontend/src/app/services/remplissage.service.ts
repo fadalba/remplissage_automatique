@@ -13,13 +13,14 @@ export class RemplissageService {
   }
   rempli: any;
   private url = 'http://localhost:3001/api/getAllc';
+  data: any[] = [];
   httpClient: any;
 
   constructor(private socket: Socket, private http: HttpClient, private route: Router) {}
 
-  // searchByDate(date: string) {
-  //   return this.http.get(`${this.url}/search?date=${date}`);
-  // }
+  getData() {
+    return this.http.get(this.url);
+  }
 
   tapisON() {
     this.socket.emit('systeme', '4')
@@ -100,6 +101,7 @@ const donnee = { "newPassword": data.newPass, "password": data.actuelPass }
  */
 getTotal1() {
   return this.http.get<any[]>(this.url);
+
 }
 
 getTotal2() {
