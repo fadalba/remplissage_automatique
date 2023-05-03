@@ -25,38 +25,7 @@ totalLenght: string|number|undefined;
 
 constructor(private http: HttpClient,private service: RemplissageService) {}
   ngOnInit(): void {
-  /*   // calcul
-  this.http.get('/api/getAllc').pipe(
-    map((data: any[]) => {
-      // Calculer les totaux
-      this.total1 = data.reduce((acc, curr) => {
-        const date = moment(curr.date);
-        if (date.hours() < 24) {
-          acc += curr.total1;
-        }
-        return acc;
-      }, 0);
-
-      this.total2 = data.reduce((acc, curr) => {
-        const date = moment(curr.date);
-        if (date.hours() < 24) {
-          acc += curr.total2;
-        }
-        return acc;
-      }, 0);
-
-      // Ajouter les totaux au tableau historique
-      this.filtre = data.concat({
-        total1: this.total1,
-        total2: this.total2,
-        date: null, // Vous pouvez utiliser la date d'aujourd'hui ou null si vous n'avez pas besoin de l'afficher dans le tableau
-        heure: null // De même pour l'heure
-      });
-    })
-  ).subscribe();
-}
-
- */
+ 
 
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
