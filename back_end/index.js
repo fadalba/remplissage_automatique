@@ -130,7 +130,8 @@ io.on('connection', function(socket) {
     if (sec < 10) { sec = '0' + sec; }
     if (min < 10) { min = '0' + min; }
     var heureInsertion = heur + ':' + min + ':' + sec;
-    var heureEtDate = laDate  + '-' + mois + '-' +  numMois; 
+    /* var heureEtDate = laDate  + '-' + mois + '-' +  numMois;  */
+    var heureEtDate = laDate  + '-' + numMois + '-' +  mois; 
    
    
  
@@ -159,8 +160,8 @@ nouveauCompteur.save((err) => {
   console.log(`Compteur : ${totalRempli}`);
 });
 
-/* // A tester
-// Fonction pour calculer les totaux à chaque 23h59mn59s
+// A tester
+/* // Fonction pour calculer les totaux à chaque 23h59mn59s
 function calculerTotaux() {
   const dateDebut = new Date(); // Date et heure actuelles
   dateDebut.setHours(0, 0, 0, 0); // Début de la journée à 00h00mn00s
@@ -193,6 +194,8 @@ function calculerTotaux() {
 // Exécution de la fonction calculerTotaux() à chaque 23h59mn59s
 setInterval(calculerTotaux, 1000 * 60 * 60 * 24); // 24 heures
  */
+  
+
 
 parser.on('mute', function(mute){
 MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {

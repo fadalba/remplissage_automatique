@@ -25,7 +25,7 @@ totalLenght: string|number|undefined;
 
 constructor(private http: HttpClient,private service: RemplissageService) {}
   ngOnInit(): void {
- 
+
 
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
