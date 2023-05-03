@@ -4,16 +4,24 @@
 </div>
 
 <div class="container">
+  <form class="form-inline my-2 my-lg-3 row ">
+    <div class="d-flex gap-1">
+      <input *ngIf="show" id="search" class="form-control" type="date" name="search" placeholder="Rechercher" [(ngModel)]="filterTerm">
+      <button class="btn btn-outline-primary" (click)="afficher()"><i class="bi bi-search"></i></button>
+    </div>
+  </form>
+
+<!--
   <form class="form-inline my-2 my-lg-3 row "   >
    <div class="d-flex gap-1" >
      <input *ngIf="show" style="width: 30%;" id="search" class="form-control" type="date" name="search" placeholder="Rechercher" [(ngModel)]="searchText">
      <button class="btn btn-outline-primary" (click)="afficher()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
       <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
     </svg></button>
-   </div>
-   <input (change)="calend($event)" class="form-control me-2" type="date" id="cal" name="calendrier">
+   </div> -->
+   <!-- <input (change)="calend($event)" class="form-control me-2" type="date" id="cal" name="calendrier">
 
- </form>
+ </form> -->
 <table class="table table-bordered rounded-3">
 
  <thead style="height: 20px; background-color: #477AFD;">
@@ -28,11 +36,11 @@
    <tr>
 
      <tr
-     *ngFor="let histo of filtre | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
+     *ngFor="let histo of data| filter: filterTerm | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
 
      <td  align="center">{{histo.Date}} </td>
-     <td align="center">{{histo.total1}}</td>
-     <td align="center">{{histo.total2}} </td>
+     <td  align="center">{{histo.total1}}</td>
+     <td  align="center">{{histo.total2}} </td>
 
    </tr>
 
@@ -44,3 +52,5 @@
    <pagination-controls (pageChange)="p = $event"></pagination-controls>
  </div>
 </div>
+
+

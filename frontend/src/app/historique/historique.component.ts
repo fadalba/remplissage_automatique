@@ -11,24 +11,34 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./historique.component.css']
 })
 export class HistoriqueComponent implements OnInit{
+filterTerm!:string;
   show:boolean=false;
-  searchText!: string;
+public hist:any=[];
 itemsperpage: number =5;
 p: number = 1; // pagination index
-filtre:  any[] = [];
+ filtre:  any[] = [];
 restaure!:any;  // ecraser les données de la recherche
 total1: number = 0; // pour bouteille 100ml
 total2: number = 0; // pour bouteille  200ml
 totalLenght: string|number|undefined;
 
+data: any[] = [];
 
 
-constructor(private http: HttpClient,private service: RemplissageService) {}
+
+constructor(private http: HttpClient, private service: RemplissageService) {}
+
+
+
   ngOnInit(): void {
 
+    this.service.getData().subscribe((res: any) => {
+      this.data = res;
+    });
 
     this.service.getTotal1().subscribe((data: any) => {
       this.total1 = data.total1;
+
     });
 
     this.service.getTotal2().subscribe((data:any) =>{
@@ -48,7 +58,22 @@ constructor(private http: HttpClient,private service: RemplissageService) {}
 
 
     throw new Error('Revoir votre implémentation, il ya erreur ');
+
   }
+
+  // filterByDate() {
+  //   if (!this.searchDate) {
+  //     this.service.getData().subscribe((res: any) => {
+  //       this.data = res;
+  //     });
+  //   } else {
+  //     const dateStr = this.searchDate instanceof Date ? this.searchDate.toISOString().substring(0, 10) : null;
+  //     this.data = this.data.filter(histo => histo.date === dateStr);
+  //     console.log(this.data);
+
+  //   }
+  // }
+
 
 
   public afficher():void{
@@ -56,30 +81,28 @@ constructor(private http: HttpClient,private service: RemplissageService) {}
   }
 
 
+
   //recherche par calendrier
 
-calend(e:any) {
-  const search = new Date(e.target.value)
- console.log(e.target.value)
-  if (e.target.value == '') { // pour vider la recherche et restaurer la liste
-    this.filtre = this.restaure as unknown as Compteur[]
-    return
-  }
+// calend(e:any) {
+//   const search = new Date(e.target.value)
+//  console.log(e.target.value)
+//   if (e.target.value == '') { // pour vider la recherche et restaurer la liste
+//     this.filtre = this.restaure as unknown as Compteur[]
+//     return
+//   }
 
 
-  this.filtre = this.filtre.filter((el:any) => { // pour filtrer la recherche
-    const date = new Date(el.date)
+//   this.filtre = this.filtre.filter((el:any) => { // pour filtrer la recherche
+//     const date = new Date(el.date)
 
-    console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
+//     console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
 
-    return date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
-  })
-
-
+//     return date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
+//   })
 
 
-}
-
+// }
 }
 
 
