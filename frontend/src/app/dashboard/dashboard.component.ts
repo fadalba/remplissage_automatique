@@ -11,10 +11,8 @@ img1:boolean=true;
 img2:boolean=true;
 showMessage: boolean = false;
 afficherMessageA() {
-  this.showMessage = true;
-  setTimeout(() => {
-    this.showMessage = false;
-  }, 2000); // Disparaître après 5 secondes
+  this.showMessage === false? this.showMessage = true:this.showMessage = false;
+
 }
 ngOnInit(): void {
 

@@ -32,6 +32,8 @@ export class UsersService {
        /*  console.log(user.data)  */
         localStorage.setItem('currentUser', JSON.stringify(res.data?.token));
         localStorage.setItem('email', JSON.stringify(res.data?.email));
+        localStorage.setItem('id', JSON.stringify(res.data?.userId));
+
         // localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
         // localStorage.setItem('nom', JSON.stringify(res.data?.nom));
         this.currentUserSubject.next(res);
@@ -88,27 +90,29 @@ export class UsersService {
 
   getLogOut(){
   localStorage.removeItem('currentUser');
-  // localStorage.removeItem('prenom');
-  // localStorage.removeItem('nom');
+  localStorage.removeItem('id');
+  localStorage.removeItem('prenom');
+  localStorage.removeItem('nom');
   localStorage.removeItem('email');
  // this.router.navigate(['']);
  // if (removeToken == null && removeprenom == null &&  removenom == null && removemail == null) {
     // }
   }
- 
+
 
 
  /*  getRole(){
     return localStorage.getItem('role');
   } */
 //Update mdp
-updatepass(id: any, data: any): Observable<any> {
+modifpass(id: any, data: User): Observable<any> {
+  console.log(id);
 
+  console.log(data);
 
-  return this.httpClient.patch<User>(`${this.endpoint}/update/${id}`,
-  {"actuelpassword": data.actuelpassword,
-"newpassword":data.newpassword})
+  let API_URL = `${this.endpoint}/updatepass/${id}`;
 
+  return this.httpClient.patch<User>(`${this.endpoint}/updatepass/${id}`,data)
 }
 
 
@@ -118,7 +122,9 @@ doLogout() {
     this.router.navigate(['/']);
   }
 }
-  
+
+
+
 }
 
 

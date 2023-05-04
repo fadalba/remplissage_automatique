@@ -18,7 +18,7 @@ router.post("/login",  async (req, res, next) => {
     let existingUser;
 
     existingUser = await Model.findOne({ email: email});
-
+console.log(existingUser);
     if (!existingUser) {
       return res.status(400).send("Utilisateur n'existe pas ou archivé!");
     }
@@ -38,24 +38,28 @@ router.post("/login",  async (req, res, next) => {
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
-    } catch (err) {
+    } 
+
+    catch (err) {
       console.log(err);
       const error = new Error("Erreur! Quelque chose s'est mal passée.");
       return next(error);
     }
-    
+    console.log(existingUser._id);
+
     res
       .status(200)
       .json({
         success: true,
         data: {
-          userId: existingUser.id,
+          userId: existingUser._id,
           email: existingUser.email,
           prenom: existingUser.prenom,
           nom: existingUser.nom,
           token: token,
-        },
+        },      
     });
+
 });
 
 /*  la méthode POST passe les paramètres dans le corps de la requête. */
@@ -68,8 +72,8 @@ const newUser = Model({
     email,
     password, 
     prenom, 
-    nom
- 
+    nom, 
+ userId
 
 });
 
@@ -142,6 +146,69 @@ catch (error) {
     res.status(400).json({ message: error.message })
 }
 })
+
+// Modification mot de passe
+// router.route('/updatepass/:id').put( async(req, res) => {
+//   console.log(req.body);
+//   try {
+//     const id = req.params.id;
+//     const updatedData = req.body;
+//     const options = { new: true };
+//     const ancienpassword= updatedData.ancienpassword
+//     const user =await Model.findById(id)
+//     const comp = await bcrypt.compare(ancienpassword, user.password)
+//     console.log(bcrypt.compare(ancienpassword, user.password));
+//     if(!comp){
+//       res.status(400).json({message: "veuillez saisir le bon actuel mot de passe!"})
+//       return;
+//     } 
+//     updatedData.newpassword
+//     const hash = await bcrypt.hash(updatedData.newpassword, 10);
+//     updatedData.newpassword = hash;
+    
+//     // console.log(hash);
+//     // return
+//               const result = await Model.findByIdAndUpdate(
+//               id, updatedData, options);
+//             return  res.send(result);
+//   }
+//   catch (error) {
+//       res.status(400).json({ message: error.message })
+//   }
+//   })
+
+  /* update by id methode  pour la mdodification*/
+router.patch('/updatepass/:id', async (req, res) => {
+  const { actuelpassword, newpassword} = req.body;
+  console.log(req.body);
+try {
+const id = req.params.id;
+//const updatedData = req.body;
+const options = { new: true };
+const result = await Model.findOne({_id:id})
+
+const passwordMatch = await bcrypt.compare(actuelpassword,result.password);
+console.log(result)
+
+if(!passwordMatch){
+  return res.status(400).json({message: 'incorrect password'});
+}
+
+
+const hashedPassword = await bcrypt.hash(newpassword, 10);
+
+result.password = hashedPassword;
+
+await Model.findByIdAndUpdate(id, {password:hashedPassword}, options )
+
+return res.status(200).json({message: 'modifier avec succes'});
+
+} catch(error) {
+   res.status(400).json({message: error.message})
+}
+
+})
+
 /* delete by id method pour supprimer */
 
 router.delete('/delete/:id', async(req, res) => {
