@@ -49,8 +49,9 @@ logout() {
     if(result.isConfirmed){
       this.router.navigateByUrl('')
       localStorage.removeItem('currentUser');
-      // localStorage.removeItem('prenom');
-      // localStorage.removeItem('nom');
+      localStorage.removeItem('prenom');
+      localStorage.removeItem('nom');
+      localStorage.removeItem('id');
     localStorage.removeItem('email');
     }
   })

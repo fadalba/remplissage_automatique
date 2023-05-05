@@ -5,6 +5,11 @@ const Model = new mongoose.Schema({
 required: false,
 type: String
 },
+
+id: {
+    required: false,
+    type: String
+    },
     
 nom: {
 required: true,
@@ -25,7 +30,6 @@ password:{
     required: true,
     type: String
 }
-
 
 })
 
