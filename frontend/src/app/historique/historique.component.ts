@@ -3,6 +3,10 @@ import { RemplissageService } from './../services/remplissage.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
 
 
 @Component({
@@ -16,6 +20,9 @@ filterTerm!:string;
 public hist:any=[];
 itemsperpage: number =5;
 p: number = 1; // pagination index
+startDate:any; // la date de debut
+endDate:any; //la date de fin
+showForm= false; // pour faire apparaite le formulaire de telechargement
  filtre:  any[] = [];
 restaure!:any;  // ecraser les données de la recherche
 total1: number = 0; // pour bouteille 100ml
@@ -27,11 +34,63 @@ data: any;
 
 
 
+
 constructor(private http: HttpClient, private service: RemplissageService) {}
 
 getCompteurData(): Observable<any> {
   return this.http.get<any>('/api/compteur');
 }
+
+
+
+// pdf telecharrger 
+
+downloadPdf() { // fonction pour telecharger l'historique des donnees de la serre
+  const startDate = new Date(this.startDate); // date de debut egalt date de debut choisie dans le formulaire
+const endDate = new Date(this.endDate); // de meme que date de fin
+this.service.getData().subscribe((data: any) => {
+const filteredData = data.filter((histo: any) => { //filtrer les donnee a partir des date
+  const date = new Date(histo.date);
+  return date >= startDate && date <= endDate; // retourner les donnner tous les date se trouvant entre la date de but et de fin chosie
+});
+    const docDefinition = { // definition du doccument
+      content: [
+        { text: 'HSITORIQUES ', style: 'header' }, //texte d'entete
+        {
+          table: {
+            headerRows: 1,
+            widths: ['*', '*','*', '*'], // nombre de colone
+            body: [ //le corps du document
+              [
+                { text: 'Date', style: 'tableHeader', fillColor: '#91D333' },// titre de chaque colone
+                { text: 'Heure', style: 'tableHeader', fillColor: '#91D333' },
+                { text: 'Bouteille 100ml', style: 'tableHeader', fillColor: '#91D333' },
+                { text: 'Bouteille 200ml', style: 'tableHeader', fillColor: '#91D333' },
+                
+              ],
+
+             
+              ...filteredData.map((histo: any) =>  [histo.date, histo.heure, histo.total1, histo.total2])
+            ]
+          },
+          style: 'data'
+        }
+      ],
+      styles: {
+        header: { fontSize: 18, bold: true },// style du heder
+        data: { fontSize: 11 },// style des donnees
+        tableHeader: { bold: true, fontSize: 11, color: 'white' } // style de l'entete des colone
+      }
+    };
+    pdfMake.createPdf(docDefinition).download(); // on apel la fonction en lui passant le document a telecharger
+  });
+}
+
+
+
+
+
+
 
   ngOnInit(): void {
 

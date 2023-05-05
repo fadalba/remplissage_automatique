@@ -1,17 +1,36 @@
-<div  style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
-  <h2 style="padding: 20px; color: white; letter-spacing:9px;"><b>HISTORIQUE</b></h2>
-  </div>
+<div><p style="font-size: 24px; margin-left: 4%;">HISTORIQUES</p></div>
+<div  style=" height: 60px; margin-left: 5%; background-color: #D9D9D9; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
+<p style="padding: 15px;">HISTORIQUES</p>
+</div>
 
 <div class="container">
-  <form class="form-inline my-2 my-lg-2 row ">
+  <form class="form-inline my-2 my-lg-3 row ">
     <div class="d-flex gap-1">
       <input *ngIf="show" id="search" class="form-control" type="date" name="search" placeholder="Rechercher" [(ngModel)]="filterTerm">
-      <button class="btn btn-outline-primary" (click)="afficher()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-      </svg></button>
+      <button class="btn btn-outline-primary" (click)="afficher()"><i class="bi bi-search"></i></button>
     </div>
   </form>
+<!-- téléchargement pdf -->
+<!-- nav class="navbar navbar-light">
+  <div class="container" style="height: 54px;display: flex;">
 
+    <div class="text-center " (mouseenter)="showForm = true" (click)="showForm = false">
+  <p style="margin-top: 25px; color: white; font-size: 10px;" >Télécharger l'historique</p>
+</div> <h1 class="text-center " style="margin-left: 250px;"> Historiques</h1>
+<form style="margin-left:350px;">
+
+</form>
+  </div>
+</nav> -->
+  <form >
+    <label style="color: #477AFD; background-color: white;" for="start-date">Du :</label>
+    <input type="date" id="start-date" [(ngModel)]="startDate" name="startDate">
+
+    <label style="color: #477AFD; background-color: white;" for="end-date">Au :</label>
+    <input type="date" id="end-date" [(ngModel)]="endDate" name="endDate">
+
+    <button style="background-color: white; color:#477AFD; font-family:Bold;" type="button" (click)="downloadPdf()">TELECHARGER</button>
+  </form> <!-- fin téléchargement pdf -->
 <table class="table table-bordered rounded-3">
 
  <thead style="height: 20px; background-color: #477AFD;">
