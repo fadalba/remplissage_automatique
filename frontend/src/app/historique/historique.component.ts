@@ -1,9 +1,9 @@
 import { Compteur } from './../../../model/compteur';
 import { RemplissageService } from './../services/remplissage.service';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import * as moment from 'moment' // bibliothèque pour manipuler les dates
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-historique',
@@ -20,19 +20,23 @@ p: number = 1; // pagination index
 restaure!:any;  // ecraser les données de la recherche
 total1: number = 0; // pour bouteille 100ml
 total2: number = 0; // pour bouteille  200ml
+/* totalG1: number = 0; */
 totalLenght: string|number|undefined;
-
-data: any[] = [];
+tj1?: any[]; // total journée 1
+data: any;
 
 
 
 constructor(private http: HttpClient, private service: RemplissageService) {}
 
-
+getCompteurData(): Observable<any> {
+  return this.http.get<any>('/api/compteur');
+}
 
   ngOnInit(): void {
 
-    this.service.getData().subscribe((res: any) => {
+
+       this.service.getData().subscribe((res: any) => {
       this.data = res;
     });
 
@@ -54,25 +58,20 @@ constructor(private http: HttpClient, private service: RemplissageService) {}
        this.restaure=data as unknown as Compteur[]
       // console.log(this.filtre);
         })
-
+/*
+        this.service.getTotalG1().subscribe(
+          (resultats) => {
+            this.tj1 = resultats;
+          },
+          (error) => {
+            console.error(error);
+          }
+        ); */
 
 
     throw new Error('Revoir votre implémentation, il ya erreur ');
 
   }
-
-  // filterByDate() {
-  //   if (!this.searchDate) {
-  //     this.service.getData().subscribe((res: any) => {
-  //       this.data = res;
-  //     });
-  //   } else {
-  //     const dateStr = this.searchDate instanceof Date ? this.searchDate.toISOString().substring(0, 10) : null;
-  //     this.data = this.data.filter(histo => histo.date === dateStr);
-  //     console.log(this.data);
-
-  //   }
-  // }
 
 
 
@@ -82,27 +81,6 @@ constructor(private http: HttpClient, private service: RemplissageService) {}
 
 
 
-  //recherche par calendrier
-
-// calend(e:any) {
-//   const search = new Date(e.target.value)
-//  console.log(e.target.value)
-//   if (e.target.value == '') { // pour vider la recherche et restaurer la liste
-//     this.filtre = this.restaure as unknown as Compteur[]
-//     return
-//   }
-
-
-//   this.filtre = this.filtre.filter((el:any) => { // pour filtrer la recherche
-//     const date = new Date(el.date)
-
-//     console.log(date.getFullYear(), search.getFullYear(), search.getMonth(), search.getDate())
-
-//     return date.getMonth() === search.getMonth() && date.getDate() === search.getDate();
-//   })
-
-
-// }
 }
 
 

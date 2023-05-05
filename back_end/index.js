@@ -30,13 +30,13 @@ console.log(error)
 
 })
 
-//Creation server socket 
+//Creation server socket
 const http = require('http').Server(app);
 
 const io = require('socket.io')(http);
 
 database.once('connected', ()=> {
-    
+
 console.log('base de données Connectée')
 
 })
@@ -48,17 +48,17 @@ var { ReadlineParser } = require("@serialport/parser-readline")
 const router = require('./routes/routes');
  const { Socket } = require('socket.io');
 
-var path = require('path'); 
+var path = require('path');
 const { log } = require('console');
 
- var port = new SerialPort({ path:'/dev/ttyACM0',
+ var port = new SerialPort({ path:'/dev/ttyUSB0',
     baudRate: 9600,
     dataBits: 8,
     parity: 'none',
     stopBits: 1,
     flowControl: false
-});  
- var parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' })); 
+});
+ var parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
 var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.vk1j3ac.mongodb.net/soutenance";
 
@@ -67,30 +67,30 @@ var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.vk1j3ac.mongodb.net/soutena
 
 
 io.on('connection', function(socket) {
-    
-     console.log('port utilisé'); 
+
+     console.log('port utilisé');
    socket.on("active", (arg) => {
         // console.log(arg); // world
         temoin = arg;
       });
-    
+
       socket.on('optionA', () =>{
       port.write("1")
       });
-         
+
       socket.on('optionB', () =>{
         port.write("2")
         });
-           
+
       socket.on('tapisOn', () =>{
         port.write('3')
-      
+
         })
         socket.on('tapisOff', () =>{
           port.write("4")
-        
+
           })
-                   
+
       socket.on('remplissageon', () =>{
         port.write("5")
         })
@@ -105,24 +105,24 @@ io.on('connection', function(socket) {
             socket.on('bouchonOff', () =>{
               port.write("8")
               })
-               
+
 });
 
- parser.on('data', function(data) { 
+ parser.on('data', function(data) {
   console.log(data)
     //console.log('les information sont: ' + data);
-    remplit = data.split('/'); 
+    remplit = data.split('/');
     var nbr_rempli = data.slice(0, 1); //decoupe de la temperature
-    
+
     //console.log(data.split('/'));
     io.emit('donne', {"quantité": nbr_rempli});
     io.emit('quantité',nbr_rempli);
-       
-    var datHeure = new Date(); 
+
+    var datHeure = new Date();
      var min = datHeure.getMinutes();
     var heur = datHeure.getHours(); //heure
     var sec = datHeure.getSeconds(); //secondes
-    var mois = datHeure.getDate(); //renvoie le chiffre du jour du mois 
+    var mois = datHeure.getDate(); //renvoie le chiffre du jour du mois
     var numMois = datHeure.getMonth() + 1; //le mois en chiffre
     var laDate = datHeure.getFullYear(); // me renvoie en chiffre l'annee
     if (numMois < 10) { numMois = '0' + numMois; }
@@ -130,18 +130,19 @@ io.on('connection', function(socket) {
     if (sec < 10) { sec = '0' + sec; }
     if (min < 10) { min = '0' + min; }
     var heureInsertion = heur + ':' + min + ':' + sec;
-    /* var heureEtDate = laDate  + '-' + mois + '-' +  numMois;  */
-    var heureEtDate = laDate  + '-' + numMois + '-' +  mois; 
-   
-   
- 
- // nouvelle methode insertion 
+    var heureEtDate = laDate  + '-' + numMois + '-' +  mois;
+
+
+
+ // nouvelle methode insertion
  let totalRempli = 0;
 
 parser.on('data', (data) => {
   // Mettre à jour le compteur
   totalRempli++;
 
+
+  
   // Afficher la nouvelle valeur du compteur
   // À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
 const nouveauCompteur = new Compteur({ total1: totalRempli, total2: totalRempli, Date:heureEtDate, Heure: heureInsertion });
@@ -154,14 +155,14 @@ nouveauCompteur.save((err) => {
 
 
   }
-   
+
 });
 
   console.log(`Compteur : ${totalRempli}`);
-});
 
-// A tester
-/* // Fonction pour calculer les totaux à chaque 23h59mn59s
+
+  /* // A tester
+// Fonction pour calculer les totaux à chaque 23h59mn59s
 function calculerTotaux() {
   const dateDebut = new Date(); // Date et heure actuelles
   dateDebut.setHours(0, 0, 0, 0); // Début de la journée à 00h00mn00s
@@ -170,9 +171,9 @@ function calculerTotaux() {
   dateFin.setHours(23, 59, 59, 999); // Fin de la journée à 23h59mn59s
 
   // Utilisation de la méthode aggregate() pour filtrer les documents de la collection "compteur"
-  Compteur.aggregate([
+  Compteur.aggregate([ // Compteur est le nom de ma fonction
     // Filtrer les documents entre dateDebut et dateFin
-    { $match: { date: { $gte: dateDebut, $lt: dateFin } } },
+    { $match: { Date: { $gte: dateDebut, $lt: dateFin } } },
     // Calculer la somme de total1 et total2
     {
       $group: {
@@ -194,7 +195,39 @@ function calculerTotaux() {
 // Exécution de la fonction calculerTotaux() à chaque 23h59mn59s
 setInterval(calculerTotaux, 1000 * 60 * 60 * 24); // 24 heures
  */
-  
+
+async function calculerTotalG1() {
+  const debutJour = moment().startOf('day');
+  const finJour = moment().endOf('day');
+
+  const resultats = await Compteur.aggregate([
+    {
+      $match: {
+        date: { $gte: debutJour.toDate(), $lte: finJour.toDate() }
+      }
+    },
+    {
+      $group: {
+        _id: {
+          annee: { $year: '$date' },
+          mois: { $month: '$date' },
+          jour: { $dayOfMonth: '$date' }
+        },
+        total1: { $sum: '$total1' }
+       
+      }
+      
+    }
+  ]);
+
+  return resultats;
+}
+        
+
+
+});
+
+
 
 
 parser.on('mute', function(mute){
@@ -204,9 +237,9 @@ MongoClient.connect(url, { useUnifiedTopology: true }, function(err, db) {
     var col = dbo.collection('compteur');
     col.find().toArray(function(err, items) {
         console.log(items);
-        io.emit('mute', items);     
+        io.emit('mute', items);
 //console.log(items);
-        
+
 })
 
 })
