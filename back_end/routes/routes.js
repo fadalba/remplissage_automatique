@@ -73,8 +73,6 @@ const newUser = Model({
     password, 
     prenom, 
     nom, 
- userId
-
 });
 
 try {

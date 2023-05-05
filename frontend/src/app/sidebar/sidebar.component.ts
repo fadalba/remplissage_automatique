@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent  implements OnInit{
+  [x: string]: any;
   currentDate = new Date();
   CurrentTime: any;
   registerForm!: FormGroup
@@ -21,8 +22,8 @@ export class SidebarComponent  implements OnInit{
   spin= false;
   verifPass:any = true;
   showMessage: boolean = false;
-
-  constructor(private formBuilder: FormBuilder, private router: Router ,
+succes!:any;
+  constructor(private formBuilder: FormBuilder, private route: Router ,
     private userService: UsersService) {
       this.registerForm = this.formBuilder.group({
         actuelpassword:['', [Validators.required, Validators.minLength(6)]],
@@ -64,11 +65,13 @@ console.log(this.currentDate);
      const id =  id1?.split(' ').join('')   //'6422b5d3c8018ff8248ecefd'
 
        return this.userService.modifpass(id,user).subscribe(res=>{
-        this.router.navigateByUrl('/dashboard')
+        this.succes = "modifier avec succes"
+        this.route.navigateByUrl('/dashboard')
         window.location.reload()
             console.log(res);
 
-       },)
+       },
+       )
 
     }
 
@@ -104,7 +107,7 @@ console.log(this.currentDate);
       })
       .then((result) => {
         if(result.isConfirmed){
-          this.router.navigateByUrl('')
+          this.route.navigateByUrl('')
           localStorage.removeItem('currentUser');
           localStorage.removeItem('prenom');
           localStorage.removeItem('nom');
