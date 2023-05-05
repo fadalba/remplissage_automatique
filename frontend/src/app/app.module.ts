@@ -36,7 +36,7 @@ const config: SocketIoConfig= {
     DashboardComponent,
     ParametreComponent,
     HistoriqueComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
