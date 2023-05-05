@@ -29,7 +29,6 @@ total1: number = 0; // pour bouteille 100ml
 total2: number = 0; // pour bouteille  200ml
 /* totalG1: number = 0; */
 totalLenght: string|number|undefined;
-tj1?: any[]; // total journée 1
 data: any;
 
 
@@ -50,7 +49,7 @@ downloadPdf() { // fonction pour telecharger l'historique des donnees de la serr
 const endDate = new Date(this.endDate); // de meme que date de fin
 this.service.getData().subscribe((data: any) => {
 const filteredData = data.filter((histo: any) => { //filtrer les donnee a partir des date
-  const date = new Date(histo.date);
+  const date = new Date(histo.Date);
   return date >= startDate && date <= endDate; // retourner les donnner tous les date se trouvant entre la date de but et de fin chosie
 });
     const docDefinition = { // definition du doccument
@@ -59,13 +58,12 @@ const filteredData = data.filter((histo: any) => { //filtrer les donnee a partir
         {
           table: {
             headerRows: 1,
-            widths: ['*', '*','*', '*'], // nombre de colone
+            widths: ['*', '*','*', '*'], // nombre de colonne
             body: [ //le corps du document
               [
-                { text: 'Date', style: 'tableHeader', fillColor: '#91D333' },// titre de chaque colone
-                { text: 'Heure', style: 'tableHeader', fillColor: '#91D333' },
-                { text: 'Bouteille 100ml', style: 'tableHeader', fillColor: '#91D333' },
-                { text: 'Bouteille 200ml', style: 'tableHeader', fillColor: '#91D333' },
+                { text: 'Date', style: 'tableHeader', fillColor: '#477AFD' },// titre de chaque colone
+                { text: 'Bouteille 100ml', style: 'tableHeader', fillColor: '#477AFD' },
+                { text: 'Bouteille 200ml', style: 'tableHeader', fillColor: '#477AFD' },
                 
               ],
 
@@ -77,15 +75,15 @@ const filteredData = data.filter((histo: any) => { //filtrer les donnee a partir
         }
       ],
       styles: {
-        header: { fontSize: 18, bold: true },// style du heder
+        header: { fontSize: 18, bold: true },// style du header
         data: { fontSize: 11 },// style des donnees
-        tableHeader: { bold: true, fontSize: 11, color: 'white' } // style de l'entete des colone
+        tableHeader: { bold: true, fontSize: 11, color: 'white' } // style de l'entete des colonne
       }
     };
     pdfMake.createPdf(docDefinition).download(); // on apel la fonction en lui passant le document a telecharger
   });
 }
-
+// fin
 
 
 
