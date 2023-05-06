@@ -9,6 +9,11 @@ export class DashboardComponent implements OnInit {
 [x: string]: any;
 img1:boolean=true;
 img2:boolean=true;
+showMessage: boolean = false;
+afficherMessageA() {
+  this.showMessage === false? this.showMessage = true:this.showMessage = false;
+
+}
 ngOnInit(): void {
 
 }

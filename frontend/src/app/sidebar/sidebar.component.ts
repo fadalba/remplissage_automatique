@@ -11,21 +11,25 @@ import Swal from 'sweetalert2';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent  implements OnInit{
+  [x: string]: any;
   currentDate = new Date();
   CurrentTime: any;
   registerForm!: FormGroup
   submitted = false
-  errMsg!:string; 
+  errMsg!:string;
   Users: any = []
   user: any;
- 
-  constructor(private formBuilder: FormBuilder, private router: Router ,
+  spin= false;
+  errorSms:any = true;
+  showMessage: boolean = false;
+succes!:any;
+  constructor(private formBuilder: FormBuilder, private route: Router ,
     private userService: UsersService) {
       this.registerForm = this.formBuilder.group({
         actuelpassword:['', [Validators.required, Validators.minLength(6)]],
         newpassword:['', [Validators.required, Validators.minLength(6)]],
         confirmation: ['', [Validators.required]],
-      }, { validator: MustMatch('newpassword', 'confirmation') 
+      }, { validator: MustMatch('newpassword', 'confirmation')
       }
       );
 /*     setInterval(() => {
@@ -40,40 +44,76 @@ console.log(this.currentDate);
       console.log(this.Users)
     })
   }
- 
-  onSubmit() {
-    const id =  localStorage.getItem('id');
-    const user ={
-      actuelpassword: this.registerForm.value.actuelpassword,
-      newpassword: this.registerForm.value.newpassword,
-      confirmation: this.registerForm.value.confirmation
+  onSubmit(){
 
- }
     this.submitted = true
-  
-    if (this.registerForm.invalid) {
-      return
-    }
-    console.log(id);
-    // retourne a la page deconnection apres le popup modification reussi
-   return this.userService.updatepass(id,user).subscribe((data)=>{
-    this.ngOnInit(); 
-    
-    Swal.fire({
-     
-      position: 'center',
-      icon: 'success',
-      title: 'Modification  mot de passe réussi !',
-      showConfirmButton: false,
-      timer: 1500
-    });
-   this.userService.doLogout()
-   },
-   error => {
-    this.errMsg = error.error.message
-    /* console.log(error.error.message) */
-  } )
-  
-  }
+    this.spin = true
 
+     if(this.registerForm.invalid){
+      this.spin = false
+
+    }
+    console.log(this.registerForm.value);
+
+     const user = {
+      newpassword: this.registerForm.value.newpassword,
+      actuelpassword: this.registerForm.value.actuelpassword
+
+     }
+
+     const id1= localStorage.getItem('id')?.replace(/"/g, '');
+     const id =  id1?.split(' ').join('')   //'6422b5d3c8018ff8248ecefd'
+
+       return this.userService.modifpass(id,user).subscribe(res=>{
+        window.location.reload()
+        this.succes = "modifier avec succes"
+        alert("modifier avec succes")
+        // this.route.navigateByUrl('dashboard')
+            console.log(res);
+
+       },
+       )
+
+    }
+
+
+    checkPassword = () => {
+
+      let pass1 = this.registerForm.value.actuelpassword//(<HTMLInputElement>document.getElementById("pass1")).value;
+      let pass2 = this.registerForm.value.newpassword//(<HTMLInputElement>document.getElementById("pass2")).value;
+    /*
+      console.log(pass1 != pass2) */
+
+      if (pass1 != pass2) {
+        this.errorSms ='Mot de passe incorrect'
+               this.spin = false
+               setTimeout(()=>{ this.errorSms = true}, 3000);
+      }
+
+    }
+    logout() {
+      // this.userService.getLogOut();
+      // this.router.navigateByUrl('login')
+      Swal.fire({
+        title: 'Voulez-vous vous vous deconnecter?',
+        icon: 'warning',
+        confirmButtonColor: "#B82010 ",
+        cancelButtonColor: "blue" ,
+        showCancelButton: true,
+        confirmButtonText: 'oui',
+        cancelButtonText: 'NON',
+
+
+      })
+      .then((result) => {
+        if(result.isConfirmed){
+          this.route.navigateByUrl('')
+          localStorage.removeItem('currentUser');
+          localStorage.removeItem('prenom');
+          localStorage.removeItem('nom');
+          localStorage.removeItem('id');
+        localStorage.removeItem('email');
+        }
+      })
+    }
 }

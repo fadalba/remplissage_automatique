@@ -8,11 +8,20 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RemplissageService {
+  filter(arg0: (e: any) => boolean): number {
+    throw new Error('Method not implemented.');
+  }
   rempli: any;
-  endpoint: any;
+  private url = 'http://localhost:3001/api/getAllc';
+  data: any[] = [];
   httpClient: any;
 
   constructor(private socket: Socket, private http: HttpClient, private route: Router) {}
+
+  getData() {
+    return this.http.get(this.url);
+  }
+
   tapisON() {
     this.socket.emit('systeme', '4')
   }
@@ -85,8 +94,21 @@ const donnee = { "newPassword": data.newPass, "password": data.actuelPass }
   }
 
 
- getremplissage(){
+getTotal1() {
+  return this.http.get<any[]>(this.url);
 
-  return this.http.get(`http://localhost:3001/remplissage`)
 }
+
+getTotal2() {
+  return this.http.get<any[]>(this.url);
 }
+/*
+getTotalG1() { // total journée1
+  return this.http.get<any[]>(this.url);
+} */
+
+
+}
+
+
+

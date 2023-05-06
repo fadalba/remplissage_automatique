@@ -32,8 +32,10 @@ export class UsersService {
        /*  console.log(user.data)  */
         localStorage.setItem('currentUser', JSON.stringify(res.data?.token));
         localStorage.setItem('email', JSON.stringify(res.data?.email));
-        localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
-        localStorage.setItem('nom', JSON.stringify(res.data?.nom));
+        localStorage.setItem('id', JSON.stringify(res.data?.userId));
+
+        // localStorage.setItem('prenom', JSON.stringify(res.data?.prenom));
+        // localStorage.setItem('nom', JSON.stringify(res.data?.nom));
         this.currentUserSubject.next(res);
         return res;
 
@@ -43,12 +45,12 @@ export class UsersService {
     getToken() {
     return localStorage.getItem('currentUser');
   }
-  getPrenom() {
-    return localStorage.getItem('prenom');
-  }
-  getnom() {
-    return localStorage.getItem('nom');
-  }
+  // getPrenom() {
+  //   return localStorage.getItem('prenom');
+  // }
+  // getnom() {
+  //   return localStorage.getItem('nom');
+  // }
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('currentUser');
     return authToken !== null ? true : false;
@@ -88,6 +90,7 @@ export class UsersService {
 
   getLogOut(){
   localStorage.removeItem('currentUser');
+  localStorage.removeItem('id');
   localStorage.removeItem('prenom');
   localStorage.removeItem('nom');
   localStorage.removeItem('email');
@@ -95,20 +98,21 @@ export class UsersService {
  // if (removeToken == null && removeprenom == null &&  removenom == null && removemail == null) {
     // }
   }
- 
+
 
 
  /*  getRole(){
     return localStorage.getItem('role');
   } */
 //Update mdp
-updatepass(id: any, data: any): Observable<any> {
+modifpass(id: any, data: User): Observable<any> {
+  console.log(id);
 
+  console.log(data);
 
-  return this.httpClient.patch<User>(`${this.endpoint}/update/${id}`,
-  {"actuelpassword": data.actuelpassword,
-"newpassword":data.newpassword})
+  let API_URL = `${this.endpoint}/updatepass/${id}`;
 
+  return this.httpClient.patch<User>(`${this.endpoint}/updatepass/${id}`,data)
 }
 
 
@@ -118,7 +122,9 @@ doLogout() {
     this.router.navigate(['/']);
   }
 }
-  
+
+
+
 }
 
 
