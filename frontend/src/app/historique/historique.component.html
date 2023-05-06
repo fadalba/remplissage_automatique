@@ -49,9 +49,9 @@
 
      <tr
      *ngFor="let histo of data| filter: filterTerm | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
-     <td  align="center">{{histo.Date}} </td>
-     <td  align="center">{{histo.total1}}</td>
-     <td  align="center">{{histo.total2}} </td>
+     <td  align="center"><p style="font-size: 20px;"><b>{{histo.Date}}</b> </p> </td>
+     <td  align="center"><p style="font-size: 20px;"><b>{{histo.total1}}</b> </p></td>
+     <td  align="center"><p style="font-size: 20px;"><b>{{histo.total2}} </b> </p></td>
 
    </tr>
 
