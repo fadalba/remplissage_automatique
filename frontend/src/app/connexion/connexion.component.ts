@@ -14,6 +14,7 @@ export class ConnexionComponent implements OnInit {
   title = 'angularvalidate';
   submitted = false;
   errorSms:any;
+  errorSms1:any;
   spin= false;
   verifPass: any = true;
   invalid= false;
@@ -70,12 +71,12 @@ ngOnInit() {
                this.errorSms ='Cette utilisateur est archivé'
                this.spin = false
                setTimeout(()=>{ this.errorSms = false}, 3001);
-               
+
              }else {
 
-             this.errorSms ='Vous  etes pas dans la base de données'
+             this.errorSms1 ='Vous  etes pas dans la base de données'
              this.spin = false
-             setTimeout(()=>{ this.errorSms = true}, 3001);
+             setTimeout(()=>{ this.errorSms1 = ''}, 3001);
            }
            }
          );

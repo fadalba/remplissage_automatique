@@ -20,7 +20,7 @@ export class SidebarComponent  implements OnInit{
   Users: any = []
   user: any;
   spin= false;
-  verifPass:any = true;
+  errorSms:any = true;
   showMessage: boolean = false;
 succes!:any;
   constructor(private formBuilder: FormBuilder, private route: Router ,
@@ -65,9 +65,10 @@ console.log(this.currentDate);
      const id =  id1?.split(' ').join('')   //'6422b5d3c8018ff8248ecefd'
 
        return this.userService.modifpass(id,user).subscribe(res=>{
-        this.succes = "modifier avec succes"
-        this.route.navigateByUrl('/dashboard')
         window.location.reload()
+        this.succes = "modifier avec succes"
+        alert("modifier avec succes")
+        // this.route.navigateByUrl('dashboard')
             console.log(res);
 
        },
@@ -84,10 +85,9 @@ console.log(this.currentDate);
       console.log(pass1 != pass2) */
 
       if (pass1 != pass2) {
-        this.verifPass = false;
-
-
-        setTimeout(() => { this.showMessage = true }, 3000);
+        this.errorSms ='Mot de passe incorrect'
+               this.spin = false
+               setTimeout(()=>{ this.errorSms = true}, 3000);
       }
 
     }
