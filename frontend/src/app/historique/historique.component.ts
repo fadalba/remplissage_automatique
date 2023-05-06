@@ -3,6 +3,10 @@ import { RemplissageService } from './../services/remplissage.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
 
 
 
@@ -17,14 +21,17 @@ filterTerm!:string;
 public hist:any=[];
 itemsperpage: number =5;
 p: number = 1; // pagination index
+startDate:any; // la date de debut
+endDate:any; //la date de fin
+showForm= false; // pour faire apparaite le formulaire de rapport de recherche
  filtre:  any[] = [];
 restaure!:any;  // ecraser les données de la recherche
 total1: number = 0; // pour bouteille 100ml
 total2: number = 0; // pour bouteille  200ml
 /* totalG1: number = 0; */
 totalLenght: string|number|undefined;
-tj1?: any[]; // total journée 1
 data: any;
+
 
 
 
@@ -33,6 +40,12 @@ constructor(private http: HttpClient, private service: RemplissageService) {}
 getCompteurData(): Observable<any> {
   return this.http.get<any>('/api/compteur');
 }
+
+
+
+
+
+
 
   ngOnInit(): void {
 
@@ -59,15 +72,6 @@ getCompteurData(): Observable<any> {
        this.restaure=data as unknown as Compteur[]
       // console.log(this.filtre);
         })
-/*
-        this.service.getTotalG1().subscribe(
-          (resultats) => {
-            this.tj1 = resultats;
-          },
-          (error) => {
-            console.error(error);
-          }
-        ); */
 
 
     throw new Error('Revoir votre implémentation, il ya erreur ');
