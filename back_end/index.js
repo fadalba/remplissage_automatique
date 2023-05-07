@@ -141,7 +141,7 @@ let totalRempli = 0;
 console.log(compt)
   if (compt === null) { // ici on vérifie si la variable compt existe avant de créer un nouveau document
       // Afficher la nouvelle valeur du compteur
-    // À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
+    // création d'un nouveau document
   const nouveauCompteur = new Compteur({ total1: totalRempli, total2: totalRempli, Date:heureEtDate, Heure: heureInsertion });
   nouveauCompteur.save((err) => {
     if (err) {

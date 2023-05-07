@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RemplissageService {
+  gethisto() {
+    throw new Error('Method not implemented.');
+  }
   filter(arg0: (e: any) => boolean): number {
     throw new Error('Method not implemented.');
   }

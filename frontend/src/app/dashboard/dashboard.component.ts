@@ -15,6 +15,8 @@ afficherMessageA() {
 
 }
 ngOnInit(): void {
+  // Appel la fonction "speak" pour lire le message à haute voix au chargement du composant
+  this.speak();
 
 }
 systemeOn(){
@@ -22,5 +24,19 @@ systemeOn(){
   }
   systemeOff(){
     this.img1 = true;
+    }
+
+
+    toggleMessage() {
+      this.showMessage = !this.showMessage;
+      // Appel la fonction "speak" pour lire le message à haute voix lors du changement d'état du système
+      this.speak();
+    }
+
+    speak() {
+      const message = this.showMessage ? 'Système ON ' : 'Système OFF';
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(message);
+      synth.speak(utterance);
     }
 }

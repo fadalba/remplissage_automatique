@@ -12,6 +12,33 @@
     </div>
   </form>
 
+<!-- ******************************Téléchargement pdf ************************************************-->
+
+<nav class="navbar navbar-light">
+  <div class="container" style="height: 54px;display: flex;">
+
+    <div class="text-center " (mouseenter)="showForm = true" (click)="showForm = false">
+  <p style="margin-top: 25px; color: white; font-size: 10px;" >Télécharger l'historique</p>
+</div>
+<form style="margin-left:350px;">
+
+<!--  -->
+</form>
+  </div>
+</nav>
+<!-- <form *ngIf="show"> -->
+  <form>
+  <label style="color: #477AFD; background-color: #3A3A3A;" for="start-date">Du :</label>
+  <input type="date" id="start-date" [(ngModel)]="startDate" name="startDate">
+
+  <label style="color: #477AFD; background-color: #3A3A3A;" for="end-date">Au :</label>
+  <input type="date" id="end-date" [(ngModel)]="endDate" name="endDate">
+
+  <button style="background-color: #3A3A3A; color:#477AFD; font-family:Bold;" type="button" (click)="downloadPdf()">TELECHARGER</button>
+</form>
+{{startDate}}
+{{endDate}}
+<!-- ****************************** fin Téléchargement pdf ************************************************-->
 
 <table class="table table-bordered rounded-3">
 
@@ -35,6 +62,7 @@
    </tr>
 
 </table>
+
 </div>
 
 <div class="mt-8 py-5 ">

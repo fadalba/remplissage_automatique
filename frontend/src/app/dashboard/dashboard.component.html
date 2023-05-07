@@ -33,11 +33,21 @@
   <img class="ml-6" style=" height: 75px ;width: 150px; margin-top: 20px; border-radius: 35px; margin-left: 200px;" src="assets/off_rouge.jpeg" alt=""> -->
 
 </div>
-<div style="margin-right: 3%;">
+<!-- <div style="margin-right: 3%;">
   <img style="height: 80px; " src="assets/mqdefault.jpg" alt="">
  <div style="background-color: green;"> <p *ngIf="showMessage" style="margin-left: 15%;">systeme ON</p> </div>
  <div style="background-color: red;"> <p *ngIf="!showMessage" style="margin-left: 15%;">systeme OFF</p> </div>
+</div> -->
+<div style="margin-right: 3%;">
+  <img style="height: 80px;" src="assets/mqdefault.jpg" alt="">
+  <div style="background-color: green;">
+    <p *ngIf="showMessage" style="margin-left: 15%;">Système ON</p>
+  </div>
+  <div style="background-color: red;">
+    <p *ngIf="!showMessage" style="margin-left: 15%;">Système OFF</p>
+  </div>
 </div>
+
 </div>
 </div>
   <div style=" height: 200px; width: 30%;  border: 4px solid blue; border-radius: 20px;">
