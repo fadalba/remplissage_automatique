@@ -23,7 +23,7 @@
             </svg>
           </span>
 
-          <!-- <img *ngIf="img1" (click)="systemeOn()" class="ml-6" style=" height: 80px ;width: 25%; margin-left: 3%; margin-top: 20px; border-radius: 50px;  " src="assets/on_noir.jpeg" alt=""> -->
+          
           <span (click)="afficherMessageA()">
             <svg *ngIf="!img1" (click)="systemeOn()" xmlns="http://www.w3.org/2000/svg" width="100" height="80"
               fill="currentColor" disabled="img1" class="bi bi-toggle2-on btn btn-outline-success " viewBox="0 0 16 16">
@@ -41,10 +41,10 @@
       <div style="margin-right: 3%;">
         <img style="height: 80px;" src="assets/mqdefault.jpg" alt="">
         <div style="background-color: green;">
-          <p *ngIf="showMessage" style="margin-left: 15%;">Système Démarré</p>
+          <p *ngIf="showMessage" style="margin-left: 15%;">Système marche</p>
         </div>
         <div style="background-color: red;">
-          <p *ngIf="!showMessage" style="margin-left: 15%;">Système Arrêté</p>
+          <p *ngIf="!showMessage" style="margin-left: 15%;">Système arret</p>
         </div>
       </div>
       <!-- **************************************Commande du système *********************-->
