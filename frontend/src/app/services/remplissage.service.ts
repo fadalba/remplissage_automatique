@@ -22,6 +22,12 @@ export class RemplissageService {
     return this.http.get(this.url);
   }
 
+  Initsysteme(){
+    this.socket.emit('Init' , '1')
+  }
+  remiseazero(){
+    this.socket.emit('remiseazero', '0')
+  }
   tapisON() {
     this.socket.emit('systeme', '4')
   }

@@ -66,11 +66,15 @@ io.on('connection', function(socket) {
         temoin = arg;
       });
 
-      socket.on('optionA', () =>{
-      port.write("1")
+      socket.on('Init', () =>{
+        port.write("1")
+        });
+
+      socket.on('remiseazero', () =>{
+      port.write("0")
       });
 
-      socket.on('optionB', () =>{
+      socket.on('option1', () =>{
         port.write("2")
         });
 
