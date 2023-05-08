@@ -65,9 +65,8 @@ console.log(this.currentDate);
      const id =  id1?.split(' ').join('')   //'6422b5d3c8018ff8248ecefd'
 
        return this.userService.modifpass(id,user).subscribe(res=>{
-        window.location.reload()
         this.succes = "modifier avec succes"
-        alert("modifier avec succes")
+        setTimeout(()=>{window.location.reload()}, 2000);
         // this.route.navigateByUrl('dashboard')
             console.log(res);
 
@@ -87,7 +86,7 @@ console.log(this.currentDate);
       if (pass1 != pass2) {
         this.errorSms ='Mot de passe incorrect'
                this.spin = false
-               setTimeout(()=>{ this.errorSms = true}, 3000);
+               setTimeout(()=>{ this.errorSms = ''}, 3000);
       }
 
     }

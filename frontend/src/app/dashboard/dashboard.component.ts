@@ -11,12 +11,17 @@ export class DashboardComponent implements OnInit {
 img1:boolean=true;
 img2:boolean=true;
 showMessage: boolean = false;
+compteurEnCours!:any;
 constructor(private RemplissageService:RemplissageService){}
 afficherMessageA() {
   this.showMessage === false? this.showMessage = true:this.showMessage = false;
 
 }
 ngOnInit(): void {
+    this.RemplissageService.compteurEnCours().subscribe((data:any) =>{
+      console.log(this.compteurEnCours);
+      this.compteurEnCours = data;
+  });
 
 }
 Initsysteme(){

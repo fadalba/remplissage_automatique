@@ -45,7 +45,7 @@ console.log('base de données Connectée')
   const router = require('./routes/routes');
  const { Socket } = require('socket.io');
 
- var port = new SerialPort({ path:'/dev/ttyACM0',
+ var port = new SerialPort({ path:'/dev/ttyACM1',
     baudRate: 9600,
     dataBits: 8,
     parity: 'none',
@@ -71,7 +71,7 @@ io.on('connection', function(socket) {
         });
 
       socket.on('remiseazero', () =>{
-      port.write("0")
+      port.write("2")
       });
 
       socket.on('option1', () =>{
@@ -112,6 +112,10 @@ let totalRempli = 0;
     //console.log('les information sont: ' + data);
     remplit = data.split('/');
     var nbr_rempli = data.slice(0, 1); //decoupe 
+    var compteurEnCours = data.slice(4);
+    console.log(compteurEnCours);
+    io.emit('data', {"compteurEnCours": compteurEnCours});
+    io.emit('compteurEnCours',compteurEnCours);
 
     //console.log(data.split('/'));
     /* io.emit('donne', {"quantité": nbr_rempli});

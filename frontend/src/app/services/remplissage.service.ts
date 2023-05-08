@@ -26,7 +26,7 @@ export class RemplissageService {
     this.socket.emit('Init' , '1')
   }
   remiseazero(){
-    this.socket.emit('remiseazero', '0')
+    this.socket.emit('remiseazero', '2')
   }
   tapisON() {
     this.socket.emit('systeme', '4')
@@ -52,7 +52,9 @@ export class RemplissageService {
   rebotOff() {
     this.socket.emit('systeme', '11' )
   }
-
+  compteurEnCours(){
+    return this.socket.fromEvent('compteurEnCours')
+  }
 
 
    remplir(){
