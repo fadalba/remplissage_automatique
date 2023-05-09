@@ -45,7 +45,7 @@ console.log('base de données Connectée')
   const router = require('./routes/routes');
  const { Socket } = require('socket.io');
 
- var port = new SerialPort({ path:'/dev/ttyUSB0',
+ var port = new SerialPort({ path:'/dev/ttyACM0',
     baudRate: 9600,
     dataBits: 8,
     parity: 'none',
@@ -66,11 +66,15 @@ io.on('connection', function(socket) {
         temoin = arg;
       });
 
-      socket.on('optionA', () =>{
-      port.write("1")
+      socket.on('Init', () =>{
+        port.write("1")
+        });
+
+      socket.on('remiseazero', () =>{
+      port.write("0")
       });
 
-      socket.on('optionB', () =>{
+      socket.on('option1', () =>{
         port.write("2")
         });
 
