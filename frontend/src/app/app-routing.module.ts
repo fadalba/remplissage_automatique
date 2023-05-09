@@ -13,11 +13,10 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { HistoriqueComponent } from './historique/historique.component';
 
 const routes: Routes = [
- { path: '', component: ConnexionComponent}, 
+  { path: '', component: SidebarComponent}, 
+  { path: '', component: ConnexionComponent}, 
   { path:'systeme',component: SystemeComponent},
   { path: 'header', component: HeaderComponent},
-
-
    { path: 'formulaire', component:NavformComponent}, 
      {path: 'dashboard', component:DashboardComponent /*,canActivate:[AuthGuard]*/},
   {path: 'parametre', component:ParametreComponent /*,canActivate:[AuthGuard]*/},
