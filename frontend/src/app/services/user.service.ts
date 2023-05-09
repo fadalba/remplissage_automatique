@@ -26,6 +26,7 @@ export class UsersService implements CanActivate {
     throw new Error('Method not implemented.');
   }
 
+
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
@@ -71,22 +72,7 @@ export class UsersService implements CanActivate {
   getUsers(){
     return this.httpClient.get(`${env.apiUrl}/getAll`)
   };
- /*   getData(){
-    return this.httpClient.get<Serre>(`${env.apiUrl}/pap`)
-  };
- */
- historique(){
-    return this.httpClient.get(`${env.apiUrl}/pap`)
-  };
-
-/*   changeRole(id:any,user: User){
-
-    return this.httpClient.patch<User>(`${env.apiUrl}/update/${id}`,user);
-  };
- modifUsers(id:any,user: User){
- return this.httpClient.patch<User>(`${env.apiUrl}/update/${id}`,user);
-  }
- */
+ 
   addUsers(user: User){
     return this.httpClient.post<User>(`${env.apiUrl}/post`,user);
   }
