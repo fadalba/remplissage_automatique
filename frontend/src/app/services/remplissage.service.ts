@@ -55,6 +55,9 @@ export class RemplissageService {
   compteurEnCours(){
     return this.socket.fromEvent('compteurEnCours')
   }
+  valeurTapis(){
+    return this.socket.fromEvent('valeurTapis')
+  }
 
 
    remplir(){

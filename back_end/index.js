@@ -45,7 +45,7 @@ console.log('base de données Connectée')
   const router = require('./routes/routes');
  const { Socket } = require('socket.io');
 
- var port = new SerialPort({ path:'/dev/ttyACM1',
+ var port = new SerialPort({ path:'/dev/ttyACM0',
     baudRate: 9600,
     dataBits: 8,
     parity: 'none',
@@ -112,11 +112,15 @@ let totalRempli = 0;
     //console.log('les information sont: ' + data);
     remplit = data.split('/');
     var nbr_rempli = data.slice(0, 1); //decoupe 
-    var compteurEnCours = data.slice(4);
-    console.log(compteurEnCours);
-    io.emit('data', {"compteurEnCours": compteurEnCours});
+    var valeurRemplissage = data.slice(17,18)
+    var valeurTapis = data.slice(15,16)
+    var compteurEnCours = data.slice(36, 37);
+   // console.log(valeurRemplissage);
+    console.log(valeurTapis);
+   // console.log(compteurEnCours);
+    io.emit('data', {"compteurEnCours": compteurEnCours}, {"valeurTapis":valeurTapis});
     io.emit('compteurEnCours',compteurEnCours);
-
+    io.emit('valeurTapis',valeurTapis);
     //console.log(data.split('/'));
     /* io.emit('donne', {"quantité": nbr_rempli});
     io.emit('quantité',nbr_rempli); */
@@ -146,7 +150,7 @@ let totalRempli = 0;
  // Dans ce cas, l'utilisation de exec() n'est pas strictement nécessaire, car findOne() renvoie déjà une promesse 
  //qui peut être attendue avec await. 
  const compt = await Compteur.findOne({Date: heureEtDate}).exec()
-console.log(compt)
+//console.log(compt)
   if (compt === null) { // ici on vérifie si la variable compt existe avant de créer un nouveau document
       // Afficher la nouvelle valeur du compteur
     // À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
@@ -163,7 +167,7 @@ console.log(compt)
     // mettre à jour le document 
     const updateResult = await Compteur.findOneAndUpdate({"_id": compt._id}, {"total1": totalRempli, "total2": totalRempli, "Heure": heureInsertion});
   }
-  console.log(`Compteur : ${totalRempli}`);
+  //console.log(`Compteur : ${totalRempli}`);
 
 });
 

@@ -12,6 +12,7 @@ img1:boolean=true;
 img2:boolean=true;
 showMessage: boolean = false;
 compteurEnCours!:any;
+valeurTapis!:any;
 constructor(private RemplissageService:RemplissageService){}
 afficherMessageA() {
   this.showMessage === false? this.showMessage = true:this.showMessage = false;
@@ -19,8 +20,13 @@ afficherMessageA() {
 }
 ngOnInit(): void {
     this.RemplissageService.compteurEnCours().subscribe((data:any) =>{
-      console.log(this.compteurEnCours);
+     // console.log(this.compteurEnCours);
       this.compteurEnCours = data;
+      this.RemplissageService.valeurTapis().subscribe((data:any)=>{
+      console.log(this.valeurTapis);
+        this.valeurTapis = data;
+
+      })
   });
 
 }
@@ -33,7 +39,7 @@ Remiseazero(){
 systemeOn(){
   this.img1 === false? this.img1 = true:this.img1 = false;
   }
-  systemeOff(){
-    this.img1 = true;
-    }
+  // systemeOff(){
+  //   this.img1 = true;
+  //   }
 }
