@@ -1,25 +1,29 @@
+import { AuthGuard } from './../auth/auth.guard';
 import { Injectable } from '@angular/core';
 import { HttpClient, } from '@angular/common/http';
 import { User } from '../../../model/user.model';
 import { env } from 'src/env';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class UsersService {
+export class UsersService implements CanActivate {
   private currentUserSubject: BehaviorSubject<User>;
   endpoint: string = 'http://localhost:3001/api';
   http: any;
-  constructor(private httpClient:HttpClient, private router: Router) {
+  constructor(private httpClient:HttpClient, private router: Router, UsersService:UsersService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse((localStorage.getItem('currentUser')!)));
    /*  if (this.currentUserSubject.value == null) {
       this.getLogOut();
       this.router.navigateByUrl('login');
     } */
+  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    throw new Error('Method not implemented.');
   }
 
   public get currentUserValue(): User {

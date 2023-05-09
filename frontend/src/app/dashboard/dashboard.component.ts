@@ -21,11 +21,11 @@ ngOnInit(): void {
 }
 systemeOn(){
   this.img1 === false? this.img1 = true:this.img1 = false;
-  
+
   }
   systemeOff(){
     this.img1 = true;
-    
+
     }
 
 /* ************************************fonction lire en haut parleur ****************************/
@@ -36,7 +36,7 @@ systemeOn(){
     }
 
     speak() {
-      const message = this.showMessage ? 'Systeme ON ' : 'Systeme OFF';
+      const message = this.showMessage ? 'Démarrage Systeme ' : 'Arrêt systeme';
       const synth = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(message);
       synth.speak(utterance);
