@@ -1,21 +1,25 @@
 import { AuthGuard } from './../auth/auth.guard';
 import { Injectable } from '@angular/core';
-import { HttpClient, } from '@angular/common/http';
 import { User } from '../../../model/user.model';
 import { env } from 'src/env';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class UsersService implements CanActivate {
+export class UsersService  {
   private currentUserSubject: BehaviorSubject<User>;
   endpoint: string = 'http://localhost:3001/api';
   http: any;
-  constructor(private httpClient:HttpClient, private router: Router, UsersService:UsersService) {
+  constructor(private httpClient:HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse((localStorage.getItem('currentUser')!)));
    /*  if (this.currentUserSubject.value == null) {
       this.getLogOut();
@@ -34,7 +38,7 @@ export class UsersService implements CanActivate {
     return this.httpClient.post<User>(`${env.apiUrl}/login`,user).
       pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-       /*  console.log(user.data)  */
+
         localStorage.setItem('currentUser', JSON.stringify(res.data?.token));
         localStorage.setItem('email', JSON.stringify(res.data?.email));
         localStorage.setItem('id', JSON.stringify(res.data?.userId));
@@ -72,7 +76,7 @@ export class UsersService implements CanActivate {
   getUsers(){
     return this.httpClient.get(`${env.apiUrl}/getAll`)
   };
- 
+
   addUsers(user: User){
     return this.httpClient.post<User>(`${env.apiUrl}/post`,user);
   }

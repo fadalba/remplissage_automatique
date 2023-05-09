@@ -11,14 +11,14 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { HistoriqueComponent } from './historique/historique.component';
 
 const routes: Routes = [
-
+  /* { path: '', redirectTo: 'connexion', pathMatch: 'full' }, */
   { path: '', component: ConnexionComponent},
   { path:'systeme',component: SystemeComponent, canActivate:[AuthGuard]},
   { path: 'header', component: HeaderComponent, canActivate:[AuthGuard]},
    { path: 'formulaire', component:NavformComponent, canActivate:[AuthGuard]},
      {path: 'dashboard', component:DashboardComponent ,canActivate:[AuthGuard]},
   {path: 'parametre', component:ParametreComponent ,canActivate:[AuthGuard]},
-  {path: 'historique', component:HistoriqueComponent ,canActivate:[AuthGuard]},
+  {path: 'historique', component:HistoriqueComponent ,canActivate:[AuthGuard]}
 
 ];
 @NgModule({
