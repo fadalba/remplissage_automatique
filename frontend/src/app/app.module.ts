@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,7 +19,6 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { HistoriqueComponent } from './historique/historique.component';
 import { CommonModule } from '@angular/common';
 import { UsersService } from './services/user.service';
-
 
 const config: SocketIoConfig= {
   url: 'http://localhost:3001',
@@ -50,6 +50,7 @@ const config: SocketIoConfig= {
     FormsModule,
     NgxPaginationModule,
     HttpClientModule,
+
   ],
 
   providers: [],
