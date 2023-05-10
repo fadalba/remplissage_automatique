@@ -66,16 +66,20 @@ io.on('connection', function(socket) {
         temoin = arg;
       });
 
-      socket.on('optionA', () =>{
-      port.write("1")
-      });
-
-      socket.on('optionB', () =>{
-        port.write("2")
+      socket.on('Init', () =>{
+        port.write("1")
         });
 
-      socket.on('tapisOn', () =>{
-        port.write('3')
+      socket.on('remiseazero', () =>{
+      port.write("2")
+      });
+
+      socket.on('option1', () =>{
+        port.write("3")
+        });
+
+      socket.on('option2', () =>{
+        port.write('4')
 
         })
         socket.on('tapisOff', () =>{
@@ -104,11 +108,33 @@ io.on('connection', function(socket) {
 let totalRempli = 0;
 
  parser.on('data', function(data) {
-  console.log(data)
+//  console.log(data)
     //console.log('les information sont: ' + data);
     remplit = data.split('/');
+    var valeurTapis = data.slice(0,1)
+    var valeurRemplissage = data.slice(2,3)
+    var valeurBouchonnage = data.slice(4,5)
+    var i = data.slice(6)
+    // var valeurTapis = remplit[0];
+    // var valeurRemplissage = remplit[1];
+    // var valeurBouchonnage = remplit[4];
+    // var i = remplit[3];
+   console.log(valeurTapis)
+   console.log(valeurRemplissage);
+ console.log(valeurBouchonnage);
+ console.log(i);
     var nbr_rempli = data.slice(0, 1); //decoupe 
-
+    //var valeurTapis = data.slice(15,16)
+    //var compteurEnCours = data.slice(36, 37);
+   // console.log(valeurRemplissage);
+    //console.log(valeurTapis);
+   // console.log(compteurEnCours);
+    io.emit('data',{"valeurTapis":valeurTapis},{'valeurRemplissage':valeurRemplissage}, {'valeurBouchonnage':valeurBouchonnage},{'i':i});
+   // io.emit('compteurEnCours',compteurEnCours);
+    io.emit('valeurTapis',valeurTapis);
+    io.emit('valeurRemplissage',valeurRemplissage);
+    io.emit('valeurBouchonnage',valeurBouchonnage);
+    io.emit('i',i);
     //console.log(data.split('/'));
     /* io.emit('donne', {"quantité": nbr_rempli});
     io.emit('quantité',nbr_rempli); */
@@ -138,10 +164,10 @@ let totalRempli = 0;
  // Dans ce cas, l'utilisation de exec() n'est pas strictement nécessaire, car findOne() renvoie déjà une promesse 
  //qui peut être attendue avec await. 
  const compt = await Compteur.findOne({Date: heureEtDate}).exec()
-console.log(compt)
+//console.log(compt)
   if (compt === null) { // ici on vérifie si la variable compt existe avant de créer un nouveau document
       // Afficher la nouvelle valeur du compteur
-    // À la fin du processus de remplissage, enregistrer le compteur final dans la base de données
+    // création d'un nouveau document
   const nouveauCompteur = new Compteur({ total1: totalRempli, total2: totalRempli, Date:heureEtDate, Heure: heureInsertion });
   nouveauCompteur.save((err) => {
     if (err) {
@@ -155,7 +181,7 @@ console.log(compt)
     // mettre à jour le document 
     const updateResult = await Compteur.findOneAndUpdate({"_id": compt._id}, {"total1": totalRempli, "total2": totalRempli, "Heure": heureInsertion});
   }
-  console.log(`Compteur : ${totalRempli}`);
+  //console.log(`Compteur : ${totalRempli}`);
 
 });
 

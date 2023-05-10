@@ -1,5 +1,11 @@
-<div  style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
+<div class="shadow" style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
   <h2 style="padding: 20px; color: white; letter-spacing:9px;"><b>PARAMÉTRES</b></h2>
+  </div>
+  <div *ngIf="showMessageA" class="btn btn-info" style="display: flex; justify-content: center; height: 50px; width: 50%;margin-left: 400px;">
+    <p>Option1 activé avec succes</p>
+  </div>
+  <div *ngIf="showMessageB" class="btn btn-dark" style="display: flex; justify-content: center; height: 50px; width: 50%;margin-left: 400px;">
+    <p>Option2 activé avec succes</p>
   </div>
 <div style="width: 70%; margin-left: 15%; height: 50%;  margin-top: 5%; border: 4px solid blue; border-radius: 20px; ">
   <br>
@@ -20,7 +26,7 @@ Voulez-vous vraiment effectuez l'option1
 </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/arrosage" >NON</button>
-      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OUI
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="option1()">OUI
       </button>
     </div>
   </div>
@@ -56,7 +62,7 @@ Voulez-vous vraiment effectuez l'option2
 </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/arrosage">NON</button>
-      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OUI</button>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal " (click)="option2()">OUI</button>
     </div>
   </div>
 </div>

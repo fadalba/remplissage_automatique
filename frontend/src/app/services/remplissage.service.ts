@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RemplissageService {
+  gethisto() {
+    throw new Error('Method not implemented.');
+  }
   filter(arg0: (e: any) => boolean): number {
     throw new Error('Method not implemented.');
   }
@@ -22,11 +25,17 @@ export class RemplissageService {
     return this.http.get(this.url);
   }
 
-  tapisON() {
-    this.socket.emit('systeme', '4')
+  Initsysteme(){
+    this.socket.emit('Init' , '1')
   }
-  tapisoff() {
-    this.socket.emit('systeme', '5')
+  remiseazero(){
+    this.socket.emit('remiseazero', '2')
+  }
+  option1() {
+    this.socket.emit('option1', '3')
+  }
+  option2() {
+    this.socket.emit('option2', '4')
   }
   remplirOn(){
     this.socket.emit('systeme', '6')
@@ -46,8 +55,21 @@ export class RemplissageService {
   rebotOff() {
     this.socket.emit('systeme', '11' )
   }
-
-
+  compteurEnCours(){
+    return this.socket.fromEvent('compteurEnCours')
+  }
+  valeurTapis(){
+    return this.socket.fromEvent('valeurTapis')
+  }
+  valeurRemplissage(){
+    return this.socket.fromEvent('valeurRemplissage')
+  }
+  valeurBouchonnage(){
+    return this.socket.fromEvent('valeurBouchonnage')
+  }
+compteurs(){
+  return this.socket.fromEvent('i')
+}
 
    remplir(){
     return new Observable( observer => {

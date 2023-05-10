@@ -1,13 +1,11 @@
 import { Compteur } from './../../../model/compteur';
 import { RemplissageService } from './../services/remplissage.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
-
+import jsPDF from 'jspdf'; // importation de package pour le pdf
+import html2canvas from 'html2canvas'; // importation de package pour le pd
 
 
 @Component({
@@ -16,7 +14,8 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./historique.component.css']
 })
 export class HistoriqueComponent implements OnInit{
-filterTerm!:string;
+  @ViewChild('htmlData') htmlData!: ElementRef; // pour le téléchargement en pdf
+  filterTerm!:string;
   show:boolean=false;
 public hist:any=[];
 itemsperpage: number =5;
@@ -40,13 +39,6 @@ constructor(private http: HttpClient, private service: RemplissageService) {}
 getCompteurData(): Observable<any> {
   return this.http.get<any>('/api/compteur');
 }
-
-
-
-
-
-
-
   ngOnInit(): void {
 
 
@@ -84,9 +76,23 @@ getCompteurData(): Observable<any> {
     this.show = !this.show;
   }
 
+  
 
+  /* *****************************************************Téléchargement en pdf ******************/
+  public openPDF(): void {
+    let DATA: any = document.getElementById('htmlData');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('rapport système de remplissage.pdf');
+    });
+  }
+/* *****************************************************Téléchargement en pdf ******************/
 
 }
-
 
 

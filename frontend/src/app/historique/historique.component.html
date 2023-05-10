@@ -1,10 +1,10 @@
-<div  style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
+<div class="shadow" style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
   <h2 style="padding: 20px; color: white; letter-spacing:9px;"><b>HISTORIQUE</b></h2>
   </div>
 
-<div class="container">
+<div class="container" >
   <form class="form-inline my-2 my-lg-2 row ">
-    <div class="d-flex gap-1">
+    <div class="d-flex gap-1" >
       <input *ngIf="show" id="search" class="form-control" type="date" name="search" placeholder="Rechercher" [(ngModel)]="filterTerm">
       <button class="btn btn-outline-primary" (click)="afficher()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -12,8 +12,11 @@
     </div>
   </form>
 
+  <div class="col-md-4 text-right">
+    <button class="btn btn-primary btn-block" (click)="openPDF()">Télécharger en PDF</button>
+  </div>
 
-<table class="table table-bordered rounded-3">
+<table class="table table-bordered rounded-3"  id="htmlData" > <!-- on appel l'id pour le pdf -->
 
  <thead style="height: 20px; background-color: #477AFD;">
    <tr>
@@ -23,10 +26,11 @@
      <th scope="col"> <i class="bi bi-cloud-rain "></i> <p class="text-white" style="text-align: center; font-size: 24px;"> BOUTEILLE 200ML</p></th>
    </tr>
  </thead>
+ 
  <tbody>
    <tr>
 
-     <tr
+     <tr 
      *ngFor="let histo of data| filter: filterTerm | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
      <td  align="center"><p style="font-size: 20px;"><b>{{histo.Date}}</b> </p> </td>
      <td  align="center"><p style="font-size: 20px;"><b>{{histo.total1}}</b> </p></td>
@@ -42,4 +46,3 @@
    <pagination-controls (pageChange)="p = $event"></pagination-controls>
  </div>
 </div>
-

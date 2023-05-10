@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,10 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { HistoriqueComponent } from './historique/historique.component';
 import { CommonModule } from '@angular/common';
 import { UsersService } from './services/user.service';
+<<<<<<< HEAD
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+=======
+>>>>>>> cc9c8f9ec99b26cfc5b7d4a72bb9b43f8c365621
 
 const config: SocketIoConfig= {
   url: 'http://localhost:3001',
@@ -50,6 +54,7 @@ const config: SocketIoConfig= {
     NgxPaginationModule,
     HttpClientModule,
     Ng2SearchPipeModule,
+
   ],
 
   providers: [],

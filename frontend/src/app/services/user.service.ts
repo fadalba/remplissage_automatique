@@ -1,16 +1,21 @@
+import { AuthGuard } from './../auth/auth.guard';
 import { Injectable } from '@angular/core';
-import { HttpClient, } from '@angular/common/http';
 import { User } from '../../../model/user.model';
 import { env } from 'src/env';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class UsersService {
+export class UsersService  {
   private currentUserSubject: BehaviorSubject<User>;
   endpoint: string = 'http://localhost:3001/api';
   http: any;
@@ -21,6 +26,10 @@ export class UsersService {
       this.router.navigateByUrl('login');
     } */
   }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    throw new Error('Method not implemented.');
+  }
+
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
@@ -29,7 +38,7 @@ export class UsersService {
     return this.httpClient.post<User>(`${env.apiUrl}/login`,user).
       pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-       /*  console.log(user.data)  */
+
         localStorage.setItem('currentUser', JSON.stringify(res.data?.token));
         localStorage.setItem('email', JSON.stringify(res.data?.email));
         localStorage.setItem('id', JSON.stringify(res.data?.userId));
@@ -67,22 +76,7 @@ export class UsersService {
   getUsers(){
     return this.httpClient.get(`${env.apiUrl}/getAll`)
   };
- /*   getData(){
-    return this.httpClient.get<Serre>(`${env.apiUrl}/pap`)
-  };
- */
- historique(){
-    return this.httpClient.get(`${env.apiUrl}/pap`)
-  };
 
-/*   changeRole(id:any,user: User){
-
-    return this.httpClient.patch<User>(`${env.apiUrl}/update/${id}`,user);
-  };
- modifUsers(id:any,user: User){
- return this.httpClient.patch<User>(`${env.apiUrl}/update/${id}`,user);
-  }
- */
   addUsers(user: User){
     return this.httpClient.post<User>(`${env.apiUrl}/post`,user);
   }

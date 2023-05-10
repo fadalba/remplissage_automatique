@@ -1,4 +1,4 @@
-<div  style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
+<div class="shadow" style=" height: 80px; margin: 2% 0% 0 5%; background-color: blue; border-radius: 10px; width: 90%; display: flex; justify-content: center;">
 <h2 style="padding: 20px; color: white; letter-spacing:9px;"><b>DASHBOARD</b></h2>
 </div>
 <br>
@@ -13,18 +13,22 @@
   <div >
     <a>
 <span style="margin-left: 40%;" (click)="afficherMessageA()">
-  <svg *ngIf="img1" (click)="systemeOn()" xmlns="http://www.w3.org/2000/svg" width="100" height="80" fill="currentColor" class="bi bi-toggle2-off btn btn-outline-danger" viewBox="0 0 16 16">
+  <span>
+  <svg *ngIf="img1" (click)="Initsysteme()" xmlns="http://www.w3.org/2000/svg" width="100" height="80" fill="currentColor" class="bi bi-toggle2-off btn btn-outline-danger" viewBox="0 0 16 16">
     <path d="M9 11c.628-.836 1-1.874 1-3a4.978 4.978 0 0 0-1-3h4a3 3 0 1 1 0 6H9z"/>
     <path d="M5 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1A5 5 0 1 0 5 3a5 5 0 0 0 0 10z"/>
   </svg>
 </span>
+</span>
 
       <!-- <img *ngIf="img1" (click)="systemeOn()" class="ml-6" style=" height: 80px ;width: 25%; margin-left: 3%; margin-top: 20px; border-radius: 50px;  " src="assets/on_noir.jpeg" alt=""> -->
 <span (click)="afficherMessageA()" >
-  <svg *ngIf="!img1" (click)="systemeOn()" xmlns="http://www.w3.org/2000/svg"   width="100" height="80" fill="currentColor"  disabled="img1" class="bi bi-toggle2-on btn btn-outline-success " viewBox="0 0 16 16">
+  <!-- <span>
+  <svg  xmlns="http://www.w3.org/2000/svg"   width="100" height="80" fill="currentColor"  disabled="img1" class="bi bi-toggle2-on btn btn-outline-success " viewBox="0 0 16 16">
     <path d="M7 5H3a3 3 0 0 0 0 6h4a4.995 4.995 0 0 1-.584-1H3a2 2 0 1 1 0-4h3.416c.156-.357.352-.692.584-1z"/>
     <path d="M16 8A5 5 0 1 1 6 8a5 5 0 0 1 10 0z"/>
   </svg>
+</span> -->
 </span>
 
     </a>
@@ -44,7 +48,7 @@
     <div style="display: flex; justify-content: center;">
      <div> <p style="font-size: 25px; color: black;"><b>Nombre de bouteilles </b><br/><span style="text-align:center; font-size: 20px; display: flex; justify-content: center;">PAR JOUR</span></p></div>
     </div>
-  <div style="display: flex; justify-content: center;"> <p style="font-size: 50px; color: black;">50</p></div>
+  <div style="display: flex; justify-content: center;"> <p style="font-size: 50px; color: black;"><b>50</b></div>
   </div>
 </div>
 <br>
@@ -62,7 +66,7 @@
           <div class=" d-flex justify-content-between" style="display: flex; flex-wrap: wrap; justify-content: center; ">
             <div >
                <p  style=" font-size: 20px; color: black; margin-left:20px;"><b>Tapis roulant</b>  </p>
-               <img *ngIf="!img1" style=" height: 60px; width: 60px; margin-left: 40%; " src="assets/sifr_mgr50cou_1_std.lang.all.jpg" alt="Card image cap">
+               <img *ngIf="valeurTapis == 3" style=" height: 60px; width: 60px; margin-left: 40%; " src="assets/sifr_mgr50cou_1_std.lang.all.jpg" alt="Card image cap">
               <br>
               <br>
               </div>
@@ -78,13 +82,8 @@
         <div class="card-body  mr-auto" style=" border-radius: 20px; border: 4px solid blue;">
 
           <p  class="text-center" style="margin-left: 10px; font-size: 20px; color:black; "> <b>Remplissage</b> </p>
+          <img *ngIf="valeurRemplissage == 4" style=" height: 60px; width: 60px; margin-left: 40%; " src="assets/sifr_mgr50cou_1_std.lang.all.jpg" alt="Card image cap">
 
-          <div class=" d-flex justify-content-between">
-            <div >
-
-            </div>
-
-          </div>
           <img  style=" height: 160px; width: 100%; margin-top: 40px;  " src="assets/usine1.jpeg" alt="Card image cap">
           <!-- <img *ngIf="" style=" height: 160px; width: 160px; " src="../../assets/ffm.jpg" alt="Card image cap"> -->
 
@@ -96,13 +95,7 @@
         <div class="card-body  mr-auto" style=" border-radius: 20px; border: 4px solid blue;">
 
           <p class="text-center" style="margin-left: 10px; font-size: 20px; color: black;"> <b>Bouchonnage</b> </p>
-
-          <div class=" d-flex justify-content-between">
-            <div >
-
-            </div>
-
-          </div>
+          <img *ngIf="valeurBouchonnage == 5" style=" height: 60px; width: 60px; margin-left: 40%; " src="assets/sifr_mgr50cou_1_std.lang.all.jpg" alt="Card image cap">
           <img  style=" height: 160px; width:100%; margin-top: 40px; " src="assets/usine2.jpeg" alt="Card image cap">
           <!-- <img *ngIf="" style=" height: 160px; width: 160px; " src="../../assets/ffm.jpg" alt="Card image cap"> -->
 
@@ -119,7 +112,7 @@
 
           <div class=" d-flex justify-content-center" style="margin-top: 40px;">
             <div  >
-    <p style="font-size: 50px; color: black;"> 0</p>
+    <p style="font-size: 50px; color: black;"><b>{{i}}</b> </p>
             </div>
 
           </div>
@@ -130,3 +123,7 @@
       </div>
 
      </div>
+     <div (click)="Remiseazero()">
+      <button type="button" class="btn btn-danger">Remiseazero</button>
+     </div>
+
