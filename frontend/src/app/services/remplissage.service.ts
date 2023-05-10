@@ -28,11 +28,11 @@ export class RemplissageService {
   remiseazero(){
     this.socket.emit('remiseazero', '2')
   }
-  tapisON() {
-    this.socket.emit('systeme', '4')
+  option1() {
+    this.socket.emit('option1', '3')
   }
-  tapisoff() {
-    this.socket.emit('systeme', '5')
+  option2() {
+    this.socket.emit('option2', '4')
   }
   remplirOn(){
     this.socket.emit('systeme', '6')
@@ -58,7 +58,15 @@ export class RemplissageService {
   valeurTapis(){
     return this.socket.fromEvent('valeurTapis')
   }
-
+  valeurRemplissage(){
+    return this.socket.fromEvent('valeurRemplissage')
+  }
+  valeurBouchonnage(){
+    return this.socket.fromEvent('valeurBouchonnage')
+  }
+compteurs(){
+  return this.socket.fromEvent('i')
+}
 
    remplir(){
     return new Observable( observer => {

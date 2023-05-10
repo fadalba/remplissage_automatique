@@ -45,7 +45,7 @@ console.log('base de données Connectée')
   const router = require('./routes/routes');
  const { Socket } = require('socket.io');
 
- var port = new SerialPort({ path:'/dev/ttyACM0',
+ var port = new SerialPort({ path:'/dev/ttyUSB0',
     baudRate: 9600,
     dataBits: 8,
     parity: 'none',
@@ -75,11 +75,11 @@ io.on('connection', function(socket) {
       });
 
       socket.on('option1', () =>{
-        port.write("2")
+        port.write("3")
         });
 
-      socket.on('tapisOn', () =>{
-        port.write('3')
+      socket.on('option2', () =>{
+        port.write('4')
 
         })
         socket.on('tapisOff', () =>{
@@ -108,19 +108,33 @@ io.on('connection', function(socket) {
 let totalRempli = 0;
 
  parser.on('data', function(data) {
-  console.log(data)
+//  console.log(data)
     //console.log('les information sont: ' + data);
     remplit = data.split('/');
+    var valeurTapis = data.slice(0,1)
+    var valeurRemplissage = data.slice(2,3)
+    var valeurBouchonnage = data.slice(4,5)
+    var i = data.slice(6)
+    // var valeurTapis = remplit[0];
+    // var valeurRemplissage = remplit[1];
+    // var valeurBouchonnage = remplit[4];
+    // var i = remplit[3];
+   console.log(valeurTapis)
+   console.log(valeurRemplissage);
+ console.log(valeurBouchonnage);
+ console.log(i);
     var nbr_rempli = data.slice(0, 1); //decoupe 
-    var valeurRemplissage = data.slice(17,18)
-    var valeurTapis = data.slice(15,16)
-    var compteurEnCours = data.slice(36, 37);
+    //var valeurTapis = data.slice(15,16)
+    //var compteurEnCours = data.slice(36, 37);
    // console.log(valeurRemplissage);
-    console.log(valeurTapis);
+    //console.log(valeurTapis);
    // console.log(compteurEnCours);
-    io.emit('data', {"compteurEnCours": compteurEnCours}, {"valeurTapis":valeurTapis});
-    io.emit('compteurEnCours',compteurEnCours);
+    io.emit('data',{"valeurTapis":valeurTapis},{'valeurRemplissage':valeurRemplissage}, {'valeurBouchonnage':valeurBouchonnage},{'i':i});
+   // io.emit('compteurEnCours',compteurEnCours);
     io.emit('valeurTapis',valeurTapis);
+    io.emit('valeurRemplissage',valeurRemplissage);
+    io.emit('valeurBouchonnage',valeurBouchonnage);
+    io.emit('i',i);
     //console.log(data.split('/'));
     /* io.emit('donne', {"quantité": nbr_rempli});
     io.emit('quantité',nbr_rempli); */
