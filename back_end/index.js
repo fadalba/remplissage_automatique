@@ -45,7 +45,7 @@ console.log('base de données Connectée')
   const router = require('./routes/routes');
  const { Socket } = require('socket.io');
 
- var port = new SerialPort({ path:'/dev/ttyUSB0',
+ var port = new SerialPort({ path:'/dev/ttyACM0',
     baudRate: 9600,
     dataBits: 8,
     parity: 'none',
