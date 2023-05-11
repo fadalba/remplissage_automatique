@@ -16,43 +16,26 @@ valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
 i!:any
-text:any
+
 
 constructor(private RemplissageService:RemplissageService){}
 /* ********************Fonction pour lire un message vocal******************** */
-lireMessageVocal() {
+lireMessageVocal(message: string) {
   const synth = window.speechSynthesis;
-  const utterance = new SpeechSynthesisUtterance("bonjur");
+  const utterance = new SpeechSynthesisUtterance(message);
   synth.speak(utterance);
-}
-
-textToSpeech(text: string) {
-  if ( 'speechSynthesis' in window) {
-    const msg = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(msg);
-    console.log(text);
-  } else {
-    console.log('synthese vocale desactivé');
-
-    //alert("Désolé, votre navigateur ne prend pas en charge la synthèse vocale.");
-  }
 }
 /* ********************fin Fonction pour lire un message vocal******************** */
 afficherMessageA() {
 this.showMessage = true;
-
-
+this.lireMessageVocal("Le système est allumé."); // syntèse vocal
 }
 afficheMessageB(){
   this.showMessage = false;
-  this.lireMessageVocal(); // syntèse vocal
+  this.lireMessageVocal("Le système est arrêté."); // syntèse vocal
 }
 ngOnInit(): void {
-  this.text='Parametre tomate applique avec succes !'
-    this.textToSpeech(this.text,);
-  this.lireMessageVocal(); 
-//  this.text = "Le système est allumé"
-// this.lireMessageVocal(this.text); // syntèse vocal
+    
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
         console.log(this.valeurTapis);
