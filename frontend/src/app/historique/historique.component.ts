@@ -89,6 +89,14 @@ getCompteurData(): Observable<any> {
     const PDF = new jsPDF('p', 'mm', 'a4');
     const position = 15; // position de déclage  aven haut du tableau
 
+ // Ajouter l'image
+ const logo = new Image();
+ /* logo.src = 'path/to/logo.png'; */
+ logo.src = './assets/back.jpg';
+ logo.onload = function() {
+   PDF.addImage(logo, 'PNG', 3, 5, 20, 20);
+
+
     // Ajouter l'en-tête avec le titre et la date
     PDF.text(title, 24, 10);//position X, Y
     PDF.text(new Date().toLocaleString(), 120, 10);
@@ -100,6 +108,7 @@ getCompteurData(): Observable<any> {
 
     // Enregistrer le document PDF
     PDF.save('rapport système de remplissage.pdf');
+ }
   });
 }
 
