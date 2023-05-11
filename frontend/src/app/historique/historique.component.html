@@ -28,8 +28,8 @@
  </thead>
  
  <tbody>
-   <tr>
-
+  <tr>
+  
      <tr 
      *ngFor="let histo of data| filter: filterTerm | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
      <td  align="center"><p style="font-size: 20px;"><b>{{histo.Date}}</b> </p> </td>
@@ -46,3 +46,4 @@
    <pagination-controls (pageChange)="p = $event"></pagination-controls>
  </div>
 </div>
+

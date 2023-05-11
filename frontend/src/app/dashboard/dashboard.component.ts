@@ -84,7 +84,7 @@ systemeOn(){
     }
 
     speak() {
-      const message = this.showMessage ? 'Démarrage Systeme ' : 'Arrêt systeme';
+      const message = this.showMessage ? 'Démarrage Systeme ' : 'Arrêt  systeme';
       const synth = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(message);
       synth.speak(utterance);

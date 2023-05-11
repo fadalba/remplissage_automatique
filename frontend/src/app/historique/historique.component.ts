@@ -78,18 +78,29 @@ getCompteurData(): Observable<any> {
   
 
   /* *****************************************************Téléchargement en pdf ******************/
+  
   public openPDF(): void {
-    let DATA: any = document.getElementById('htmlData');
-    html2canvas(DATA).then((canvas) => {
-      let fileWidth = 208;
-      let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-      PDF.save('rapport système de remplissage.pdf');
-    });
-  }
+  const title = 'Rapport de remplissage du';
+  let DATA: any = document.getElementById('htmlData');
+  html2canvas(DATA).then((canvas) => {
+    let fileWidth = 208;
+    let fileHeight = (canvas.height * fileWidth) / canvas.width;
+    const FILEURI = canvas.toDataURL('image/png');
+    const PDF = new jsPDF('p', 'mm', 'a4');
+    const position = 0;
+
+    // Ajouter l'en-tête avec le titre et la date
+    PDF.text(title, 80, 12);
+    PDF.text(new Date().toLocaleString(), 80, 12);
+
+    // Ajouter l'image
+    PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+
+    // Enregistrer le document PDF
+    PDF.save('rapport système de remplissage.pdf');
+  });
+}
+
 /* *****************************************************Téléchargement en pdf ******************/
 
 }
