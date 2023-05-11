@@ -80,7 +80,7 @@ getCompteurData(): Observable<any> {
   /* *****************************************************Téléchargement en pdf ******************/
   
   public openPDF(): void {
-  const title = 'Rapport de remplissage imprimé le : ';
+  const title = 'Rapport de remplissage imprimé le :';
   let DATA: any = document.getElementById('htmlData');
   html2canvas(DATA).then((canvas) => {
     let fileWidth = 208;
@@ -90,8 +90,8 @@ getCompteurData(): Observable<any> {
     const position = 15; // position de déclage  aven haut du tableau
 
     // Ajouter l'en-tête avec le titre et la date
-    PDF.text(title, 20, 10);//position X, Y
-    PDF.text(new Date().toLocaleString(), 90, 10);
+    PDF.text(title, 24, 10);//position X, Y
+    PDF.text(new Date().toLocaleString(), 120, 10);
 
     
 
