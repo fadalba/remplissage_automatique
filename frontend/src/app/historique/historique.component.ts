@@ -91,7 +91,7 @@ getCompteurData(): Observable<any> {
 
     // Ajouter l'en-tête avec le titre et la date
     PDF.text(title, 80, 12);
-    PDF.text(new Date().toLocaleString(), 80, 12);
+    PDF.text(new Date().toLocaleString(), 80, 20);
 
     // Ajouter l'image
     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);

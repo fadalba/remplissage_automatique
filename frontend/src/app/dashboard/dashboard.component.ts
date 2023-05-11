@@ -16,27 +16,43 @@ valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
 i!:any
-
+text:any
 
 constructor(private RemplissageService:RemplissageService){}
-// Fonction pour lire un message vocal
-lireMessageVocal(message: string) {
+/* ********************Fonction pour lire un message vocal******************** */
+lireMessageVocal() {
   const synth = window.speechSynthesis;
-  const utterance = new SpeechSynthesisUtterance(message);
+  const utterance = new SpeechSynthesisUtterance("bonjur");
   synth.speak(utterance);
 }
+
+textToSpeech(text: string) {
+  if ( 'speechSynthesis' in window) {
+    const msg = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(msg);
+    console.log(text);
+  } else {
+    console.log('synthese vocale desactivé');
+
+    //alert("Désolé, votre navigateur ne prend pas en charge la synthèse vocale.");
+  }
+}
+/* ********************fin Fonction pour lire un message vocal******************** */
 afficherMessageA() {
 this.showMessage = true;
-this.lireMessageVocal("Le système est allumé.");
+
+
 }
 afficheMessageB(){
   this.showMessage = false;
-  this.lireMessageVocal("Le système est arrêté.");
+  this.lireMessageVocal(); // syntèse vocal
 }
 ngOnInit(): void {
-    // this.RemplissageService.compteurEnCours().subscribe((data:any) =>{
-    //  // console.log(this.compteurEnCours);
-    //   this.compteurEnCours = data;
+  this.text='Parametre tomate applique avec succes !'
+    this.textToSpeech(this.text,);
+  this.lireMessageVocal(); 
+//  this.text = "Le système est allumé"
+// this.lireMessageVocal(this.text); // syntèse vocal
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
         console.log(this.valeurTapis);
@@ -56,29 +72,22 @@ ngOnInit(): void {
         })
 })
       })
-  // });
-  // Appel la fonction "speak" pour lire le message à haute voix au chargement du composant
- // this.speak();
-
+  
 }
 Initsysteme(){
   this.RemplissageService.Initsysteme()
-  // this.img1 === false? this.img1 = true:this.img1 = false;
+ 
 
 }
 Remiseazero(){
   this.RemplissageService.remiseazero()
-  // this.img1 === false? this.img1 = true:this.img1 = false;
+  
 
 }
 option1(){
   this.RemplissageService.option1()
 }
-// systemeOn(){
-//   }
-  // systemeOff(){
-  //   this.img1 = true;
-  //   }
+
 systemeOn(){
   this.img1 === false? this.img1 = true:this.img1 = false;
 
@@ -88,22 +97,5 @@ systemeOn(){
 
     }
 
-/* ************************************fonction lire en haut parleur ****************************/
-    /* toggleMessage() {
-      this.showMessage = !this.showMessage;
-      // Appel la fonction "speak" pour lire le message à haute voix lors du changement d'état du système
-      this.speak();
-    }
 
-    speak() {
-      const message = this.showMessage ? 'Démarrage Systeme ' : 'Arrêt  systeme';
-      const synth = window.speechSynthesis;
-      const utterance = new SpeechSynthesisUtterance(message);
-      synth.speak(utterance);
-      // Pause de 1 seconde pour laisser le temps à la synthèse vocale de s'initialiser
-      setTimeout(() => {
-        synth.speak(utterance);
-      }, 1000);
-    } */
-    /* ************************************fin  fonction lire en haut parleur ********************/
 }
