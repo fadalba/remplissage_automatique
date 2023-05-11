@@ -87,14 +87,13 @@ getCompteurData(): Observable<any> {
     let fileHeight = (canvas.height * fileWidth) / canvas.width;
     const FILEURI = canvas.toDataURL('image/png');
     const PDF = new jsPDF('p', 'mm', 'a4');
-    const position = 15; // position de déclage  aven haut du tableau
+    const position = 20; // position de déclage  aven haut du tableau
 
  // Ajouter l'image
  const logo = new Image();
- /* logo.src = 'path/to/logo.png'; */
- logo.src = './assets/back.jpg';
+  logo.src = './assets/logo.png';
  logo.onload = function() {
-   PDF.addImage(logo, 'PNG', 3, 5, 20, 20);
+   PDF.addImage(logo, 'PNG', 2, 2, 15, 15);
 
 
     // Ajouter l'en-tête avec le titre et la date
