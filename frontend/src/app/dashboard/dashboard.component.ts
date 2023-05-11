@@ -18,8 +18,10 @@ valeurBouchonnage!:any
 i!:any
 constructor(private RemplissageService:RemplissageService){}
 afficherMessageA() {
-  this.showMessage === false? this.showMessage = true:this.showMessage = false;
-
+this.showMessage = true;
+}
+afficheMessageB(){
+  this.showMessage = false
 }
 ngOnInit(): void {
     // this.RemplissageService.compteurEnCours().subscribe((data:any) =>{

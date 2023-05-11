@@ -15,6 +15,12 @@ export class ParametreComponent implements OnInit {
       this.showMessageA = false;
     }, 3000); // Disparaître après 5 secondes
   }
+  afficherMessageB() {
+    this.showMessageB = true;
+    setTimeout(() => {
+      this.showMessageB = false;
+    }, 3000); // Disparaître après 5 secondes
+  }
   constructor( private remplissageService:RemplissageService){}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
