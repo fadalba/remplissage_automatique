@@ -16,12 +16,22 @@ valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
 i!:any
+
+
 constructor(private RemplissageService:RemplissageService){}
+// Fonction pour lire un message vocal
+lireMessageVocal(message: string) {
+  const synth = window.speechSynthesis;
+  const utterance = new SpeechSynthesisUtterance(message);
+  synth.speak(utterance);
+}
 afficherMessageA() {
 this.showMessage = true;
+this.lireMessageVocal("Le système est allumé.");
 }
 afficheMessageB(){
-  this.showMessage = false
+  this.showMessage = false;
+  this.lireMessageVocal("Le système est arrêté.");
 }
 ngOnInit(): void {
     // this.RemplissageService.compteurEnCours().subscribe((data:any) =>{
@@ -48,7 +58,7 @@ ngOnInit(): void {
       })
   // });
   // Appel la fonction "speak" pour lire le message à haute voix au chargement du composant
-  this.speak();
+ // this.speak();
 
 }
 Initsysteme(){
@@ -79,7 +89,7 @@ systemeOn(){
     }
 
 /* ************************************fonction lire en haut parleur ****************************/
-    toggleMessage() {
+    /* toggleMessage() {
       this.showMessage = !this.showMessage;
       // Appel la fonction "speak" pour lire le message à haute voix lors du changement d'état du système
       this.speak();
@@ -94,6 +104,6 @@ systemeOn(){
       setTimeout(() => {
         synth.speak(utterance);
       }, 1000);
-    }
+    } */
     /* ************************************fin  fonction lire en haut parleur ********************/
 }
