@@ -22,7 +22,17 @@ total1: number = 0; // compteur pour bouteille 100ml
 total2: number = 0; // compteur pour bouteille  200ml
 data: any;
 
-constructor(private RemplissageService:RemplissageService, private http: HttpClient,){}
+constructor(private RemplissageService:RemplissageService, private http: HttpClient,){
+  this.RemplissageService.getTotal1().subscribe((data: any) => {
+    this.total1 = data.total1;
+
+  });
+
+  this.RemplissageService.getTotal2().subscribe((data: any) => {
+    this.total1 = data.total1;
+
+  });
+}
 
 getCompteurData(): Observable<any> {
   return this.http.get<any>('/api/compteur');
@@ -47,15 +57,7 @@ ngOnInit(): void {
     this.data = res;
   });
 
-  this.RemplissageService.getTotal1().subscribe((data: any) => {
-    this.total1 = data.total1;
-
-  });
-
-  this.RemplissageService.getTotal2().subscribe((data: any) => {
-    this.total1 = data.total1;
-
-  });
+  
 
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
