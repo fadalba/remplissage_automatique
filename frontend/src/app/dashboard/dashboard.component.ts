@@ -17,9 +17,9 @@ compteurEnCours!:any;
 valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
-i!:any // compteur du nombre de bouteille
-total1: number = 0; // pour bouteille 100ml
-total2: number = 0; // pour bouteille  200ml
+i!:any // compteur du nombre de bouteille en temps réel
+total1: number = 0; // compteur pour bouteille 100ml
+total2: number = 0; // compteur pour bouteille  200ml
 data: any;
 
 constructor(private RemplissageService:RemplissageService, private http: HttpClient,){}

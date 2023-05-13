@@ -2,7 +2,6 @@ const express = require('express');/* recupere la variable express dans la boite
 const mongoose  = require('mongoose'); //gere link api base de donnees
 const Model = require('./models/users');
 const Compteur = require('./models/compteur');
-const jwt = require("jsonwebtoken");
 require('dotenv').config();/* pour recuperer le fichier env */
 var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors') //configuration des differentes requettes pour acceder aux ressources
@@ -37,8 +36,6 @@ database.once('connected', ()=> {
 console.log('base de données Connectée')
 
 })
-
-
   var fs = require('fs');
   const { SerialPort } = require('serialport');
   var { ReadlineParser } = require("@serialport/parser-readline")
@@ -108,37 +105,26 @@ io.on('connection', function(socket) {
 let totalRempli = 0;
 
  parser.on('data', function(data) {
-//  console.log(data)
-    //console.log('les information sont: ' + data);
+
     remplit = data.split('/');
     var valeurTapis = data.slice(0)
     var valeurRemplissage = data.slice(2,3)
     var valeurBouchonnage = data.slice(4,5)
     var i = data.slice(6)
-    // var valeurTapis = remplit[0];
-    // var valeurRemplissage = remplit[1];
-    // var valeurBouchonnage = remplit[4];
-    // var i = remplit[3];
+    
    console.log(valeurTapis)
    console.log(valeurRemplissage);
  console.log(valeurBouchonnage);
  console.log(i);
     var nbr_rempli = data.slice(0, 1); //decoupe 
-    //var valeurTapis = data.slice(15,16)
-    //var compteurEnCours = data.slice(36, 37);
-   // console.log(valeurRemplissage);
-    //console.log(valeurTapis);
-   // console.log(compteurEnCours);
+   
     io.emit('data',{"valeurTapis":valeurTapis},{'valeurRemplissage':valeurRemplissage}, {'valeurBouchonnage':valeurBouchonnage},{'i':i});
    // io.emit('compteurEnCours',compteurEnCours);
     io.emit('valeurTapis',valeurTapis);
     io.emit('valeurRemplissage',valeurRemplissage);
     io.emit('valeurBouchonnage',valeurBouchonnage);
     io.emit('i',i);
-    //console.log(data.split('/'));
-    /* io.emit('donne', {"quantité": nbr_rempli});
-    io.emit('quantité',nbr_rempli); */
-
+   
     var datHeure = new Date();
      var min = datHeure.getMinutes();
     var heur = datHeure.getHours(); //heure

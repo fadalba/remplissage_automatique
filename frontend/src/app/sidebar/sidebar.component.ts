@@ -32,10 +32,7 @@ succes!:any;
       }, { validator: MustMatch('newpassword', 'confirmation')
       }
       );
-/*     setInterval(() => {
-      this.CurrentTime = new Date().getHours() + ':' + new Date().getMinutes() + ':'+  new Date().getSeconds()}, + 1);
-console.log(this.currentDate);
- */
+
   }
   ngOnInit(): void {
     this.userService.getUsers().subscribe((data) => {
@@ -91,8 +88,7 @@ console.log(this.currentDate);
 
     }
     logout() {
-      // this.userService.getLogOut();
-      // this.router.navigateByUrl('login')
+     
       Swal.fire({
         title: 'Voulez-vous vous vous deconnecter?',
         icon: 'warning',
@@ -115,4 +111,7 @@ console.log(this.currentDate);
         }
       })
     }
+
+
+   
 }
