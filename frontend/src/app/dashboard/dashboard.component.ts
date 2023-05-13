@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RemplissageService } from '../services/remplissage.service';
-
+import { Compteur } from './../../../model/compteur';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,9 +18,15 @@ valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
 i!:any // compteur du nombre de bouteille
+total1: number = 0; // pour bouteille 100ml
+total2: number = 0; // pour bouteille  200ml
+data: any;
 
+constructor(private RemplissageService:RemplissageService, private http: HttpClient,){}
 
-constructor(private RemplissageService:RemplissageService){}
+getCompteurData(): Observable<any> {
+  return this.http.get<any>('/api/compteur');
+}
 /* ********************Fonction pour lire un message vocal******************** */
 lireMessageVocal(message: string) {
   const synth = window.speechSynthesis;
@@ -35,7 +43,20 @@ afficheMessageB(){
   this.lireMessageVocal("Le système est arrêté."); // syntèse vocal
 }
 ngOnInit(): void {
-    
+  this.RemplissageService.getData().subscribe((res: any) => {
+    this.data = res;
+  });
+
+  this.RemplissageService.getTotal1().subscribe((data: any) => {
+    this.total1 = data.total1;
+
+  });
+
+  this.RemplissageService.getTotal2().subscribe((data: any) => {
+    this.total1 = data.total1;
+
+  });
+
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
         console.log(this.valeurTapis);
@@ -55,6 +76,7 @@ ngOnInit(): void {
         })
 })
       })
+      
   
 }
 Initsysteme(){

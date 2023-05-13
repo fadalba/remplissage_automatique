@@ -35,7 +35,7 @@ lireMessageVocal(message: string) {
 
   afficherMessageB(message: string) {
     console.log(message);
-    this.lireMessageVocal("Option 2 (200ml) activée avec succès");
+    this.lireMessageVocal("Option 2 (200ml) activée avec succès"); // syntèse vocal
 // Afficher une fenêtre contextuelle avec le message "activé avec succès"
 Swal.fire({
   icon: 'success',
