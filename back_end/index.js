@@ -111,7 +111,7 @@ let totalRempli = 0;
 //  console.log(data)
     //console.log('les information sont: ' + data);
     remplit = data.split('/');
-    var valeurTapis = data.slice(0,1)
+    var valeurTapis = data.slice(0)
     var valeurRemplissage = data.slice(2,3)
     var valeurBouchonnage = data.slice(4,5)
     var i = data.slice(6)
