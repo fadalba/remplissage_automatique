@@ -88,7 +88,7 @@ getCompteurData(): Observable<any> {
     const FILEURI = canvas.toDataURL('image/png');
     const PDF = new jsPDF('p', 'mm', 'a4');
     const position = 20; // position de déclage  aven haut du tableau
-
+    
  // Ajouter l'image
  const logo = new Image();
   logo.src = './assets/logo.png';
@@ -104,6 +104,8 @@ getCompteurData(): Observable<any> {
 
     // Ajouter l'image
     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+
+    
 
     // Enregistrer le document PDF
     PDF.save('rapport système de remplissage.pdf');

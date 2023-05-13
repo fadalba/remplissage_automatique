@@ -15,7 +15,7 @@ compteurEnCours!:any;
 valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
-i!:any
+i!:any // compteur du nombre de bouteille
 
 
 constructor(private RemplissageService:RemplissageService){}
