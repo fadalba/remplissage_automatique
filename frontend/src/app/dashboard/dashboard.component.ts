@@ -24,13 +24,6 @@ constructor(private RemplissageService:RemplissageService, private http: HttpCli
  
 }
 
-
-
-getCompteurData(): Observable<any> {
-  return this.http.get<any>('/api/compteur');
-}
-
-
 /* ********************Fonction pour lire un message vocal******************** */
 lireMessageVocal(message: string) {
   const synth = window.speechSynthesis;
