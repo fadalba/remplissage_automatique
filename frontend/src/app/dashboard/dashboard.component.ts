@@ -34,7 +34,7 @@ this.lireMessageVocal("Le système est allumé."); // syntèse vocal
 afficheMessageB(){
   this.showMessage = false;
   this.i <=0;
-  this.lireMessageVocal("Le système est arrêté."); // syntèse vocal
+  this.lireMessageVocal("Le système est arrêté. Remise du compteur a zéro"); // syntèse vocal
 }
 ngOnInit(): void {
 
