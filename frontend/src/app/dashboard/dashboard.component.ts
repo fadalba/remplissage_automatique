@@ -28,14 +28,16 @@ lireMessageVocal(message: string) {
 /* ********************fin Fonction pour lire un message vocal******************** */
 afficherMessageA() {
 this.showMessage = true;
+  this.i >= 1;
 this.lireMessageVocal("Le système est allumé."); // syntèse vocal
 }
 afficheMessageB(){
   this.showMessage = false;
+  this.i <=0;
   this.lireMessageVocal("Le système est arrêté."); // syntèse vocal
 }
 ngOnInit(): void {
-    
+
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
         console.log(this.valeurTapis);
@@ -55,16 +57,16 @@ ngOnInit(): void {
         })
 })
       })
-  
+
 }
 Initsysteme(){
   this.RemplissageService.Initsysteme()
- 
+
 
 }
 Remiseazero(){
   this.RemplissageService.remiseazero()
-  
+
 
 }
 option1(){

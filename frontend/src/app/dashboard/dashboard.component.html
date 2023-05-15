@@ -28,7 +28,7 @@
     </div>
     <a>
 <span style="margin-left: 40%;" (click)="afficherMessageA()">
-  
+
 </span>
 
 
@@ -39,12 +39,12 @@
 
     </a>
 
-  
+
 </div>
 <div style="margin-right: 3%;">
   <img style="height: 80px; " src="assets/mqdefault.jpg" alt="">
- <div style="background-color: green;"> <p *ngIf="showMessage" style="margin-left: 15%;">En marche</p> </div>
- <div style="background-color: red;"> <p *ngIf="!showMessage" style="margin-left: 15%;">En arrêt</p> </div>
+ <div style="background-color: green;"> <p *ngIf=" i >=1" style="margin-left: 15%;">En marche</p> </div>
+ <div style="background-color: red;"> <p *ngIf=" i<=0" style="margin-left: 15%;">En arrêt</p> </div>
 </div>
 </div>
 </div>
@@ -68,7 +68,7 @@
   </div>
 </div>
 <br>
-<div class="container justify-content-between custom-line d-flex justify-content-around mt-8 shadow" style=" height: 60px; width: 30%; border-radius: 6px; background-color: blue;">
+<div class="container justify-content-between custom-line d-flex justify-content-around mt-8 shadow" style=" height: 80px; width: 30%; border-radius: 6px; background-color: blue;">
   <h3 class="text-center p-3 " style="color:white;"><b>SUIVI DU SYTÉME EN TEMPS REEL</b></h3>
 </div>
 <br>
