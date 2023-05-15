@@ -18,25 +18,19 @@ valeurTapis!:any;
 valeurRemplissage!:any
 valeurBouchonnage!:any
 i!:any // compteur du nombre de bouteille en temps réel
-total1: number = 0; // compteur pour bouteille 100ml
-total2: number = 0; // compteur pour bouteille  200ml
 data: any;
 
 constructor(private RemplissageService:RemplissageService, private http: HttpClient,){
-  this.RemplissageService.getTotal1().subscribe((data: any) => {
-    this.total1 = data.total1;
-
-  });
-
-  this.RemplissageService.getTotal2().subscribe((data: any) => {
-    this.total1 = data.total1;
-
-  });
+ 
 }
+
+
 
 getCompteurData(): Observable<any> {
   return this.http.get<any>('/api/compteur');
 }
+
+
 /* ********************Fonction pour lire un message vocal******************** */
 lireMessageVocal(message: string) {
   const synth = window.speechSynthesis;
@@ -57,7 +51,7 @@ ngOnInit(): void {
     this.data = res;
   });
 
-  
+ 
 
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
