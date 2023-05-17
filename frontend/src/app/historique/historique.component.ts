@@ -79,18 +79,41 @@ getCompteurData(): Observable<any> {
   
 
   /* *****************************************************Téléchargement en pdf ******************/
+  
   public openPDF(): void {
-    let DATA: any = document.getElementById('htmlData');
-    html2canvas(DATA).then((canvas) => {
-      let fileWidth = 208;
-      let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-      PDF.save('rapport système de remplissage.pdf');
-    });
-  }
+  const title = 'Rapport de remplissage imprimé le :';
+  let DATA: any = document.getElementById('htmlData');
+  html2canvas(DATA).then((canvas) => {
+    let fileWidth = 208;
+    let fileHeight = (canvas.height * fileWidth) / canvas.width;
+    const FILEURI = canvas.toDataURL('image/png');
+    const PDF = new jsPDF('p', 'mm', 'a4');
+    const position = 20; // position de déclage  aven haut du tableau
+    
+ // Ajouter l'image
+ const logo = new Image();
+  logo.src = './assets/logo.png';
+ logo.onload = function() {
+   PDF.addImage(logo, 'PNG', 2, 2, 15, 15);
+
+
+    // Ajouter l'en-tête avec le titre et la date
+    PDF.text(title, 24, 10);//position X, Y
+    PDF.text(new Date().toLocaleString(), 120, 10);
+
+    
+
+    // Ajouter l'image
+    PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+
+    
+
+    // Enregistrer le document PDF
+    PDF.save('rapport système de remplissage.pdf');
+ }
+  });
+}
+
 /* *****************************************************Téléchargement en pdf ******************/
 
 }
