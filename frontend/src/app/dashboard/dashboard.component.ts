@@ -33,18 +33,23 @@ lireMessageVocal(message: string) {
 /* ********************fin Fonction pour lire un message vocal******************** */
 afficherMessageA() {
 this.showMessage = true;
+  this.i >= 1;
 this.lireMessageVocal("Le système est allumé."); // syntèse vocal
 }
 afficheMessageB(){
   this.showMessage = false;
-  this.lireMessageVocal("Le système est arrêté."); // syntèse vocal
+  this.i <=0;
+  this.lireMessageVocal("Le système est arrêté. Remise du compteur a zéro"); // syntèse vocal
 }
 ngOnInit(): void {
+<<<<<<< HEAD
   this.RemplissageService.getData().subscribe((res: any) => {
     this.data = res;
   });
 
  
+=======
+>>>>>>> 303d08d1ae3a43054dc45777e0b7cdce65461343
 
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
@@ -65,17 +70,21 @@ ngOnInit(): void {
         })
 })
       })
+<<<<<<< HEAD
       
   
+=======
+
+>>>>>>> 303d08d1ae3a43054dc45777e0b7cdce65461343
 }
 Initsysteme(){
   this.RemplissageService.Initsysteme()
- 
+
 
 }
 Remiseazero(){
   this.RemplissageService.remiseazero()
-  
+
 
 }
 option1(){
