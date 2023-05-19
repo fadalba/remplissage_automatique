@@ -21,7 +21,7 @@ i!:any // compteur du nombre de bouteille en temps réel
 data: any;
 
 constructor(private RemplissageService:RemplissageService, private http: HttpClient,){
- 
+
 }
 
 /* ********************Fonction pour lire un message vocal******************** */
@@ -42,14 +42,6 @@ afficheMessageB(){
   this.lireMessageVocal("Le système est arrêté. Remise du compteur a zéro"); // syntèse vocal
 }
 ngOnInit(): void {
-<<<<<<< HEAD
-  this.RemplissageService.getData().subscribe((res: any) => {
-    this.data = res;
-  });
-
- 
-=======
->>>>>>> 303d08d1ae3a43054dc45777e0b7cdce65461343
 
       this.RemplissageService.valeurTapis().subscribe((data:any)=>{
         this.valeurTapis = data;
@@ -70,12 +62,6 @@ ngOnInit(): void {
         })
 })
       })
-<<<<<<< HEAD
-      
-  
-=======
-
->>>>>>> 303d08d1ae3a43054dc45777e0b7cdce65461343
 }
 Initsysteme(){
   this.RemplissageService.Initsysteme()
