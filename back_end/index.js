@@ -107,13 +107,6 @@ let totalRempli = 0;
  parser.on('data', function(data) {
 
     remplit = data.split('/');
-<<<<<<< HEAD
-    var valeurTapis = data.slice(0)
-    var valeurRemplissage = data.slice(2,3)
-    var valeurBouchonnage = data.slice(4,5)
-    var i = data.slice(6)
-    
-=======
     // var valeurTapis = data.slice(0)
     // var valeurRemplissage = data.slice(2,3)
     // var valeurBouchonnage = data.slice(4,5)
@@ -122,12 +115,11 @@ let totalRempli = 0;
     var valeurRemplissage = remplit[1];
     var valeurBouchonnage = remplit[2];
     var i = remplit[3];
->>>>>>> 303d08d1ae3a43054dc45777e0b7cdce65461343
-   console.log(valeurTapis)
+   /* console.log(valeurTapis)
    console.log(valeurRemplissage);
  console.log(valeurBouchonnage);
- console.log(i);
-    var nbr_rempli = data.slice(0, 1); //decoupe 
+ console.log(i); */
+    //var nbr_rempli = data.slice(0, 1); //decoupe 
    
     io.emit('data',{"valeurTapis":valeurTapis},{'valeurRemplissage':valeurRemplissage}, {'valeurBouchonnage':valeurBouchonnage},{'i':i});
    // io.emit('compteurEnCours',compteurEnCours);

@@ -21,32 +21,32 @@ lireMessageVocal(message: string) {
 
   afficherMessageA(message: string) {
       console.log(message);
-      this.lireMessageVocal("Option 1 (100ml)activée avec succès"); // syntèse vocal
+      this.lireMessageVocal("Option 1 activée avec succès"); // syntèse vocal
   // Afficher une fenêtre contextuelle avec le message "activé avec succès"
   Swal.fire({
     icon: 'success',
-    title: 'Option 1 (100ml) activé avec succès!',
+    title: 'Option 1 (10ml) activée avec succès!',
     text: message,
-    timer: 2000,
+    timer: 5000,
     timerProgressBar: true,
   });
-    
+
   }
 
   afficherMessageB(message: string) {
     console.log(message);
-    this.lireMessageVocal("Option 2 (200ml) activée avec succès"); // syntèse vocal
+    this.lireMessageVocal("Option 2 activée avec succès"); // syntèse vocal
 // Afficher une fenêtre contextuelle avec le message "activé avec succès"
 Swal.fire({
   icon: 'success',
-  title: 'Option 2 (200ml) activé avec succès!',
+  title: 'Option 2 (20ml) activée avec succès!',
   text: message,
-  timer: 2000,
+  timer: 5000,
   timerProgressBar: true,
 });
-  
+
 }
- 
+
   constructor( private remplissageService:RemplissageService){}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
