@@ -124,10 +124,7 @@ getTotal1() {
 getTotal2() {
   return this.http.get<any[]>(this.url);
 }
-/*
-getTotalG1() { // total journée1
-  return this.http.get<any[]>(this.url);
-} */
+
 
 
 }

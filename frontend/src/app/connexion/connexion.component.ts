@@ -34,9 +34,7 @@ ngOnInit() {
 
     })
 
-
 }
-
 
     onSubmit(){
       this.submitted = true
@@ -61,7 +59,6 @@ ngOnInit() {
            /*  console.log(data) */
                 this.route.navigateByUrl('dashboard')
                 this.spin = true
-
           },
           /* verifie si l'utilisateur n'est pas dans la base de donnée ou l'utilisateur est archiver */
           error=>{
