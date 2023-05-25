@@ -146,36 +146,6 @@ catch (error) {
 })
 
 // Modification mot de passe
-// router.route('/updatepass/:id').put( async(req, res) => {
-//   console.log(req.body);
-//   try {
-//     const id = req.params.id;
-//     const updatedData = req.body;
-//     const options = { new: true };
-//     const ancienpassword= updatedData.ancienpassword
-//     const user =await Model.findById(id)
-//     const comp = await bcrypt.compare(ancienpassword, user.password)
-//     console.log(bcrypt.compare(ancienpassword, user.password));
-//     if(!comp){
-//       res.status(400).json({message: "veuillez saisir le bon actuel mot de passe!"})
-//       return;
-//     } 
-//     updatedData.newpassword
-//     const hash = await bcrypt.hash(updatedData.newpassword, 10);
-//     updatedData.newpassword = hash;
-    
-//     // console.log(hash);
-//     // return
-//               const result = await Model.findByIdAndUpdate(
-//               id, updatedData, options);
-//             return  res.send(result);
-//   }
-//   catch (error) {
-//       res.status(400).json({ message: error.message })
-//   }
-//   })
-
-  /* update by id methode  pour la mdodification*/
 router.patch('/updatepass/:id', async (req, res) => {
   const { actuelpassword, newpassword} = req.body;
   console.log(req.body);
