@@ -1,35 +1,45 @@
 #include <Servo.h>
+#include<IRremote.h>  
 Servo servoRotate;
 Servo servoMonter;
 const int trigPin_presence = 10;
 const int echoPin_presence = 11;
+
 const int trigPin_remplissage = A0;
 const int echoPin_remplissage = A1;
-const int trigPin_bouchonnage = A2;
+
+const int trigPin_bouchonnage = 1;
 const int echoPin_bouchonnage = A3;
+
 const int trigPin_compteur = A4;
 const int echoPin_compteur = A5;
+const int RECV_PIN = A2;
 
 const int motorTapis = 12;
 const int motorRotate = 5;
 const int pin8 = 8;
-
 int i = 0;
-int ledBouchonnage = 2;
-int ledTapis = 3;
-int ledRemplissage = 4;
-int ledCompteur = 12;
-int buttonInit = 8;
-int buttonStop = 9;
-void setup(){
-servoRotate.attach(6);
-servoMonter.attach(7);
+int buttonInit = 3;
+int buttonStop = 4;
+int buttonTapis = 2;
 
-  pinMode(ledTapis, OUTPUT);
-  pinMode(ledRemplissage, OUTPUT);
-  pinMode(ledBouchonnage, OUTPUT);
-  pinMode(ledCompteur, OUTPUT);
-  pinMode(buttonInit, INPUT);
+// Objet pour la réception des signaux infrarouges
+IRrecv irrecv(RECV_PIN);
+
+// Structure pour stocker les informations du signal reçu
+decode_results results;
+
+void setup(){
+
+  // Active la réception infrarouge
+  irrecv.enableIRIn();
+    
+servoRotate.attach(7);
+servoMonter.attach(6);
+servoRotate.write(180);
+servoMonter.write(0);
+
+  pinMode(buttonInit,INPUT);
   pinMode(buttonStop, INPUT);
   
   pinMode(trigPin_presence, OUTPUT); 
@@ -47,18 +57,16 @@ servoMonter.attach(7);
   pinMode(motorTapis, OUTPUT);
   pinMode(motorRotate, OUTPUT);
   pinMode(pin8, OUTPUT); // broche d'alimentation du relais
-  /*
-  pinMode(D,INPUT);
-  pinMode(capteur4,INPUT); 
-  */
+
 // moteurPasAPas.setSpeed(25);
 
   Serial.begin(9600);
 
+
 }
 
-void loop(){
 
+void loop(){
   long duration1, distance1;
   long duration2, distance2;
   long duration3, distance3;
@@ -116,93 +124,29 @@ void loop(){
   Serial.print(distance4);
   Serial.println(" cm");
 */
-/*
-  //condition d'allumage du systéme************
-  if(digitalRead(buttonInit) == HIGH){
-       if(distance1 < 50){
-    digitalWrite(ledTapis, HIGH);
-    digitalWrite(motorTapis, HIGH);
-    Serial.print(3);
-    Serial.print("/");
-    delay(2000);
-      }
-      if(distance2 < 50){
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, HIGH);
-    Serial.print(4);
-    Serial.print("/");
-     delay(500);
-    digitalWrite(pin8, HIGH); 
-      delay(4000); //remplissage 50ml
-    digitalWrite(pin8, LOW);
-      delay(500);   
-    digitalWrite(motorRotate, HIGH);
-      }
-      if(distance3 < 50){ 
-    digitalWrite(motorRotate, LOW);
-    digitalWrite(ledRemplissage, LOW);
-    digitalWrite(ledBouchonnage, HIGH);
-    Serial.print(5);
-    Serial.print("/");
-      delay(3000);//temps de bouchonnage par le moteurbouchonnage
-    digitalWrite(motorRotate, HIGH);
-      delay(500); 
-    digitalWrite(ledBouchonnage, LOW);  
-    digitalWrite(motorRotate, LOW);
-   }
-      if(distance4 < 50){
-    digitalWrite(ledCompteur, HIGH);
-         i++;
-    //Serial.print("compteur en cours = ");   
-    Serial.println(i);
-    digitalWrite(ledCompteur, LOW);
+  // Vérifie si un signal infrarouge a été reçu
+  if (irrecv.decode())
+  {
+    // Accédez aux données décodées via l'objet irrecv.decodedIRData
+    unsigned long value = irrecv.decodedIRData.decodedRawData;
 
-    }
-   }
-   //condition pour eteidre le systéme***********
-  else if(digitalRead(buttonStop) == HIGH){
-         i=0;
-    Serial.println(i); 
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, LOW);
-    digitalWrite(ledBouchonnage, LOW);
-    digitalWrite(motorRotate, LOW);
-    digitalWrite(ledCompteur, LOW);
-    }
-    */
-  delay(1000); // Délai entre les mesures
-  
-//INTERFACE APPLICATION WEB ******************
-if (Serial.available() > 0) { // Si des données sont disponibles sur le port série
-    static char etat = Serial.read();
-  //Serial.print(etat, "/");
-  //Serial.println(distance_presence);
-  //envoie du signal 1 pour demarrage systéme
- if(etat == '1'){
-   while (etat != '2') {
-  //  si capteur presence détecte une bouteille sur la tapis
-      if(distance1 < 5){
-    digitalWrite(ledTapis, HIGH);
-    digitalWrite(motorTapis, HIGH);
-    Serial.print(3);
-    Serial.print("/");
-      }
-  //  si capteur au poste de remplissage détecte une bouteille    
-      if(distance2 < 5){
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, HIGH);
+    // Affiche le code du signal infrarouge reçu
+    Serial.println(value);
+    if (value == 4077715200){
+    // Effectuez les actions souhaitées en fonction du code reçu
+    while (value == 4077715200 && i<=1)
+    {
+ //  si capteur au poste de remplissage détecte une bouteille    
+      if(distance2 < 15){
     Serial.print(4);
     Serial.print("/");
      delay(500);
-    digitalWrite(pin8, HIGH); 
-      delay(4000); //remplissage 50ml
-    digitalWrite(pin8, LOW);
+   digitalWrite(pin8, HIGH); 
+    delay(4000); //remplissage 100ml
+   digitalWrite(pin8, LOW);
       delay(500);
       //apres remplissage il va y'avoir rotation de la plaque tournante de 90° pour aller au poste de bouchonnage 
-    for (int angle = 0; angle <= 90; angle++) {
+    for (int angle = 180; angle >= 40; angle--) {
     servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
@@ -227,23 +171,113 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
   }
   delay(500);
   //rotation de la plaque tournante encore de 90° pour evacuer la bouteille remplie
-  for (int angle = 0; angle <= 90; angle++) {
-   servoRotate.write(angle);
+    for (int angle = 40; angle >= 0; angle--) {
+    servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
       }
   //si le capteur detecte la bouteille , le compteur s'incrémente
-      if(distance4 < 5){
-    digitalWrite(ledCompteur, HIGH);
+      if(distance4 < 30){
          i++;
     //Serial.print("compteur en cours = ");   
     Serial.println(i);
-    digitalWrite(ledCompteur, LOW);
      delay(1000);
      // puis aprés 1 seconde la plaque tournante retourne au point de départ pour refaire le cycle
- for (int angle = 180; angle >= 0; angle--) {
+     for (int angle = 0; angle <= 180; angle++) {
     servoRotate.write(angle);
-    delay(15);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
+    } 
+    } 
+            irrecv.resume();
+ 
+    }
+     
+
+    else if (value == 3910598400)
+    {
+    digitalWrite(motorRotate, LOW);
+    digitalWrite(motorTapis, LOW);
+    servoRotate.write(180);
+    servoMonter.write(0);
+    }
+    else if( value == 3877175040){
+          digitalWrite(motorTapis, HIGH);
+      }
+
+    // Réactive la réception infrarouge pour écouter d'autres signaux
+    irrecv.resume();
+  }
+
+     
+
+
+  delay(1000); // Délai entre les mesures
+  
+//INTERFACE APPLICATION WEB ******************
+if (Serial.available() > 0) { // Si des données sont disponibles sur le port série
+    static char etat = Serial.read();
+  //Serial.print(etat, "/");
+  //Serial.println(distance_presence);
+  //envoie du signal 1 pour demarrage systéme
+ if(etat == '1'){
+   while (etat != '2') {
+  //  si capteur presence détecte une bouteille sur la tapis
+      if(distance1 < 15){
+    Serial.print(3);
+    Serial.print("/");
+      }
+
+  //  si capteur au poste de remplissage détecte une bouteille    
+      if(distance2 < 15){
+    Serial.print(4);
+    Serial.print("/");
+     delay(500);
+   digitalWrite(pin8, HIGH); 
+    delay(4000); //remplissage 100ml
+   digitalWrite(pin8, LOW);
+      delay(500);
+      //apres remplissage il va y'avoir rotation de la plaque tournante de 90° pour aller au poste de bouchonnage 
+    for (int angle = 180; angle >= 40; angle--) {
+    servoRotate.write(angle);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
+   Serial.print(5);
+   Serial.print("/");
+    delay(500); 
+    //arriver au poste de bouchonnage il va y'avoir rotation de 180° pour faire déscendre le moteur de bouchonnage
+  for (int angle = 0; angle <= 180; angle++) {
+    servoMonter.write(angle);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
+  delay(500);
+  //bouchonnage pendant 2 secondes
+  digitalWrite(motorRotate, HIGH);
+  delay(2000);
+  digitalWrite(motorRotate, LOW);
+  delay(500);
+    //retour du moteur de bouchonnage au point de départ
+ for (int angle = 180; angle >= 0; angle--) {
+    servoMonter.write(angle);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
+  delay(500);
+  //rotation de la plaque tournante encore de 90° pour evacuer la bouteille remplie
+    for (int angle = 40; angle >= 0; angle--) {
+    servoRotate.write(angle);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
+      }
+  //si le capteur detecte la bouteille , le compteur s'incrémente
+      if(distance4 < 30){
+         i++;
+    //Serial.print("compteur en cours = ");   
+    Serial.println(i);
+     delay(1000);
+     // puis aprés 1 seconde la plaque tournante retourne au point de départ pour refaire le cycle
+     for (int angle = 0; angle <= 180; angle++) {
+    servoRotate.write(angle);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
     }
 
@@ -258,13 +292,8 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
     if(etat == '2'){
       i=0;
     Serial.println(i); 
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, LOW);
-    digitalWrite(ledBouchonnage, LOW);
     digitalWrite(motorRotate, LOW);
-    digitalWrite(ledCompteur, LOW);
-    servoRotate.write(0);
+    servoRotate.write(180);
     servoMonter.write(0);
     } 
 
@@ -274,16 +303,11 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
           etat = Serial.read();
        if(etat == '3'){
    while (etat != '2' && i<=1) {
-      if(distance1 < 5){
-    digitalWrite(ledTapis, HIGH);
-    digitalWrite(motorTapis, HIGH);
+      if(distance1 < 15){
     Serial.print(3);
     Serial.print("/");
       }
-      if(distance2 < 5){
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, HIGH);
+      if(distance2 < 15){
     Serial.print(4);
     Serial.print("/");
      delay(500);
@@ -291,7 +315,7 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
       delay(4000); //remplissage 50ml
     digitalWrite(pin8, LOW);
       delay(500);   
-    for (int angle = 0; angle <= 90; angle++) {
+  for (int angle = 180; angle >= 40; angle--) {
     servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
@@ -312,21 +336,19 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
   delay(500);
-  for (int angle = 0; angle <= 90; angle++) {
-   servoRotate.write(angle);
+    for (int angle = 40; angle >= 0; angle--) {
+    servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
       }
-      if(distance4 < 50){
-    digitalWrite(ledCompteur, HIGH);
+      if(distance4 < 15){
          i++;
     //Serial.print("compteur en cours = ");   
     Serial.println(i);
-    digitalWrite(ledCompteur, LOW);
    delay(1000);
-     for (int angle = 180; angle >= 0; angle--) {
+     for (int angle = 0; angle <= 180; angle++) {
     servoRotate.write(angle);
-    delay(15);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
     }
  
@@ -340,16 +362,11 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
     //option2
     else if(etat == '4'){
  while (etat != '2' && i<=2) {
-         if(distance1 < 50){
-    digitalWrite(ledTapis, HIGH);
-    digitalWrite(motorTapis, HIGH);
+         if(distance1 < 15){
     Serial.print(3);
     Serial.print("/");
       }
-        if(distance2 < 50){
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, HIGH);
+        if(distance2 < 15){
     Serial.print(4);
     Serial.print("/");
      delay(500);
@@ -357,7 +374,7 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
       delay(4000); //remplissage 50ml
     digitalWrite(pin8, LOW);
       delay(500);   
-  for (int angle = 0; angle <= 90; angle++) {
+  for (int angle = 180; angle >= 40; angle--) {
     servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
@@ -378,37 +395,30 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
   delay(500);
-  for (int angle = 0; angle <= 90; angle++) {
-   servoRotate.write(angle);
+    for (int angle = 40; angle >= 0; angle--) {
+    servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
       }
-      if(distance4 < 50){
-    digitalWrite(ledCompteur, HIGH);
+      if(distance4 < 15){
          i++;
     //Serial.print("compteur en cours = ");   
     Serial.println(i);
-    digitalWrite(ledCompteur, LOW);
     delay(1000);
-     for (int angle = 180; angle >= 0; angle--) {
+      for (int angle = 0; angle <= 180; angle++) {
     servoRotate.write(angle);
-    delay(15);
-   }
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
     }
  
  }
     }else if(etat == '1'){
  while (etat != '2') {
-         if(distance1 < 50){
-    digitalWrite(ledTapis, HIGH);
-    digitalWrite(motorTapis, HIGH);
+         if(distance1 < 15){
     Serial.print(3);
     Serial.print("/");
       }
-      if(distance2 < 50){
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, HIGH);
+      if(distance2 < 15){
     Serial.print(4);
     Serial.print("/");
      delay(500);
@@ -416,7 +426,7 @@ if (Serial.available() > 0) { // Si des données sont disponibles sur le port s�
       delay(4000); //remplissage 50ml
     digitalWrite(pin8, LOW);
       delay(500);   
-for (int angle = 0; angle <= 90; angle++) {
+ for (int angle = 180; angle >= 40; angle--) {
     servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
@@ -437,17 +447,20 @@ for (int angle = 0; angle <= 90; angle++) {
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
   delay(500);
-  for (int angle = 0; angle <= 90; angle++) {
-   servoRotate.write(angle);
+    for (int angle = 40; angle >= 0; angle--) {
+    servoRotate.write(angle);
     delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
   }
       }
-      if(distance4 < 50){
-    digitalWrite(ledCompteur, HIGH);
+      if(distance4 < 15){
          i++;
     //Serial.print("compteur en cours = ");   
     Serial.println(i);
-    digitalWrite(ledCompteur, LOW);
+    delay(1000);
+    for (int angle = 0; angle <= 180; angle++) {
+    servoRotate.write(angle);
+    delay(15); // Attendre un court instant pour que le servomoteur atteigne la position désirée
+  }
 
     }
   
@@ -460,13 +473,8 @@ for (int angle = 0; angle <= 90; angle++) {
     if(etat == '2'){
       i=0;
     Serial.println(i); 
-    digitalWrite(ledTapis, LOW);
-    digitalWrite(motorTapis, LOW);
-    digitalWrite(ledRemplissage, LOW);
-    digitalWrite(ledBouchonnage, LOW);
     digitalWrite(motorRotate, LOW);
-    digitalWrite(ledCompteur, LOW);
-    servoRotate.write(0);
+    servoRotate.write(180);
     servoMonter.write(0);
     }
           if (Serial.available() > 0) {

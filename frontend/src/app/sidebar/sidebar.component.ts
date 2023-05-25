@@ -74,8 +74,6 @@ console.log(this.currentDate);
        )
 
     }
-
-
     checkPassword = () => {
 
       let pass1 = this.registerForm.value.actuelpassword//(<HTMLInputElement>document.getElementById("pass1")).value;
