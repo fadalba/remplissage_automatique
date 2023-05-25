@@ -15,7 +15,7 @@
   <div class="col-md-4 text-right">
     <button class="btn btn-primary btn-block" (click)="openPDF()">Télécharger en PDF</button>
   </div>
-  
+
 
 <table class="table table-bordered rounded-3"  id="htmlData" > <!-- on appel l'id pour le pdf -->
 
@@ -23,15 +23,15 @@
    <tr>
      <th scope="col"><p class="text-white" style="text-align: center; font-size: 24px;">DATE</p></th>
 
-     <th scope="col"><i class="bi bi-thermometer-half "></i><p class="text-white" style="text-align: center; font-size: 24px;">BOUTEILLE 100ML</p></th>
-     <th scope="col"> <i class="bi bi-cloud-rain "></i> <p class="text-white" style="text-align: center; font-size: 24px;"> BOUTEILLE 200ML</p></th>
+     <th scope="col"><i class="bi bi-thermometer-half "></i><p class="text-white" style="text-align: center; font-size: 24px;">BOUTEILLE 10ML</p></th>
+     <th scope="col"> <i class="bi bi-cloud-rain "></i> <p class="text-white" style="text-align: center; font-size: 24px;"> BOUTEILLE 20ML</p></th>
    </tr>
  </thead>
- 
+
  <tbody>
   <tr>
-  
-     <tr 
+
+     <tr
      *ngFor="let histo of data| filter: filterTerm | paginate: {itemsPerPage:5, currentPage:p, totalItems:totalLenght };">
      <td  align="center"><p style="font-size: 20px;"><b>{{histo.Date}}</b> </p> </td>
      <td  align="center"><p style="font-size: 20px;"><b>{{histo.total1}}</b> </p></td>

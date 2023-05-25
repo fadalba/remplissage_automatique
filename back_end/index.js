@@ -53,8 +53,6 @@ console.log('base de données Connectée')
 
 var url = "mongodb+srv://fadalba:Thiaroye44@cluster0.vk1j3ac.mongodb.net/soutenance";
 
-
-
 io.on('connection', function(socket) {
 
      console.log('port utilisé');
@@ -102,24 +100,18 @@ io.on('connection', function(socket) {
 });
 
 // nouvelle methode insertion
-let totalRempli = 0;
+let totalRempli = 0;// pour total 1
+let totalRempli2 = 0; // pour total2
 
  parser.on('data', function(data) {
 
     remplit = data.split('/');
-    // var valeurTapis = data.slice(0)
-    // var valeurRemplissage = data.slice(2,3)
-    // var valeurBouchonnage = data.slice(4,5)
-    // var i = data.slice(6)
+    
     var valeurTapis = remplit[0];
     var valeurRemplissage = remplit[1];
     var valeurBouchonnage = remplit[2];
     var i = remplit[3];
-   /* console.log(valeurTapis)
-   console.log(valeurRemplissage);
- console.log(valeurBouchonnage);
- console.log(i); */
-    //var nbr_rempli = data.slice(0, 1); //decoupe 
+  
    
     io.emit('data',{"valeurTapis":valeurTapis},{'valeurRemplissage':valeurRemplissage}, {'valeurBouchonnage':valeurBouchonnage},{'i':i});
    // io.emit('compteurEnCours',compteurEnCours);
@@ -147,6 +139,7 @@ let totalRempli = 0;
   parser.on('data', async (data) => {
   // Mettre à jour le compteur
   totalRempli++;
+  totalRempli2++;
 // findOne() est une méthode Mongoose qui permet de récupérer un document unique dans la collection, en fonction d'un critère de recherche.
  //Dans ce cas, le critère de recherche est un objet qui contient une propriété Date égale à la valeur de la variable heureEtDate
  // exec() est une méthode Mongoose qui permet d'exécuter la requête.
@@ -157,20 +150,20 @@ let totalRempli = 0;
   if (compt === null) { // ici on vérifie si la variable compt existe avant de créer un nouveau document
       // Afficher la nouvelle valeur du compteur
     // création d'un nouveau document
-  const nouveauCompteur = new Compteur({ total1: totalRempli, total2: totalRempli, Date:heureEtDate, Heure: heureInsertion });
+  const nouveauCompteur = new Compteur({ total1: totalRempli, total2: totalRempli2, Date:heureEtDate, Heure: heureInsertion });
   nouveauCompteur.save((err) => {
     if (err) {
       console.error(err);
     } else {
-      console.log(`Compteur final enregistré : ${totalRempli}`);
+      console.log(`Compteur final enregistré : ${totalRempli2}`);
     }
 
   });
   } else {
     // mettre à jour le document 
-    const updateResult = await Compteur.findOneAndUpdate({"_id": compt._id}, {"total1": totalRempli, "total2": totalRempli, "Heure": heureInsertion});
+    const updateResult = await Compteur.findOneAndUpdate({"_id": compt._id}, {"total1": totalRempli, "total2": totalRempli2, "Heure": heureInsertion});
   }
-  //console.log(`Compteur : ${totalRempli}`);
+  console.log(`Compteur : ${totalRempli2}`);
 
 });
 
